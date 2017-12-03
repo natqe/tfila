@@ -7,11 +7,7 @@ const headerNav = header.querySelector('nav');
 const headerNavInput = headerNav.querySelector('input');
 const footer = document.querySelector('footer');
 const footerH6 = footer.querySelector('h6');
-const footerH6Time = footerH6.querySelector('time');
-const footerH6Bdi = footerH6.querySelector('bdi');
-const footerH6BdiTime = footerH6Bdi.querySelector('time');
-const year = new Date().getFullYear();
-let locationHash = location.hash;
+const footerH6Times = footerH6.getElementsByTagName('time');
 function changeMain(toMain) {
     for (const main of mains) {
         main.style.display = main !== toMain ? 'none' : 'grid';
@@ -45,22 +41,14 @@ function hashContent(elem) {
     }
 }
 
-footerH6Time.textContent = year;
-footerH6BdiTime.textContent = year;
-hashContent(locationHash ? document.querySelector(locationHash) : false);
+for (const time of footerH6Times) {
+    time.textContent = new Date().getFullYear();
+}
 
-window.addEventListener('hashchange', () => {
-    locationHash = location.hash;
-    hashContent(locationHash ? document.querySelector(locationHash) : false);
-});
+hashContent(location.hash ? document.querySelector(location.hash) : false);
 
-aHashs.forEach(a => {
-    a.addEventListener('click', () => {
-        const aHash = a.hash;
-        hashContent(aHash ? document.querySelector(aHash) : false);
-    });
-});
-
+window.addEventListener('hashchange', () => hashContent(location.hash ? document.querySelector(location.hash) : false));
+aHashs.forEach(a => a.addEventListener('click', () => hashContent(a.hash ? document.querySelector(a.hash) : false)));
 headerNavInput.addEventListener('keypress', e => {
     const headerNavInputValue = headerNavInput.value;
     if (e.keyCode === 13 && headerNavInputValue) {
