@@ -51,7 +51,7 @@ hashContent(locationHash ? document.querySelector(locationHash) : false);
 
 window.addEventListener('hashchange', () => {
     locationHash = location.hash;
-    hashContent(location.hash ? document.querySelector(location.hash) : false);
+    hashContent(locationHash ? document.querySelector(locationHash) : false);
 });
 
 aHashs.forEach(a => {
