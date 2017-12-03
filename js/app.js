@@ -35,8 +35,9 @@ function hashContent(elem) {
     }
 }
 
-for (const time of footerH6.getElementsByTagName('time')) time.textContent = new Date().getFullYear();
 hashContent(location.hash ? document.querySelector(location.hash) : false);
+for (const time of footerH6.getElementsByTagName('time')) time.textContent = new Date().getFullYear();
+
 
 window.addEventListener('hashchange', () => hashContent(location.hash ? document.querySelector(location.hash) : false));
 document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', () => hashContent(a.hash ? document.querySelector(a.hash) : false)));
