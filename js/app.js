@@ -76,4 +76,3 @@ headerNavInput.addEventListener('keypress', e => {
         }
     }
 });
-
