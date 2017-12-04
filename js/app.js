@@ -39,12 +39,10 @@ hashContent(location.hash ? document.querySelector(location.hash) : false);
 for (const time of footerH6.getElementsByTagName('time')) time.textContent = new Date().getFullYear();
 
 window.addEventListener('hashchange', () => hashContent(location.hash ? document.querySelector(location.hash) : false));
-document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', e => {
-        e.stopPropagation();
-        hashContent(a.hash ? document.querySelector(a.hash) : false);
-    });
-});
+document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
+    e.stopPropagation();
+    hashContent(a.hash ? document.querySelector(a.hash) : false);
+}));
 headerNavInput.addEventListener('keypress', e => {
     e.stopPropagation();
     const headerNavInputValue = headerNavInput.value;
