@@ -1,6 +1,6 @@
 #Alternate default index page
-DirectoryIndex first.html
+DirectoryIndex false
 
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^([^\.]+)$ $1.htm [NC,L]
+RewriteRule ^([^\.]+)$ $1.php [NC,L]
