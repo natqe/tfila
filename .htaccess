@@ -1,6 +1,13 @@
-#Alternate default index page
-DirectoryIndex false
+DirectoryIndex index.php
+# Redirect /  /index
 
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^([^\.]+)$ $1.php [NC,L]
+
+# /index#500
+ErrorDocument 500 http://localhost/tfilaleshlomo/index#500
+# /index#401
+ErrorDocument 401 http://localhost/tfilaleshlomo/index#401
+# /index#404
+ErrorDocument 404 http://localhost/tfilaleshlomo/index#404

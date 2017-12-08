@@ -5,9 +5,9 @@
         <a href="#home">
             <figure>
                 <picture>
-                    <source media="(max-width: 768px )" srcset="images/logo.png">
-                    <source media="(max-width: 480px )" srcset="images/logo.png">
-                    <img src="images/logo.png" alt="" title="ביקור בדף הראשי">
+                    <source media="(max-width: 768px )" srcset="img/logo.png">
+                    <source media="(max-width: 480px )" srcset="img/logo.png">
+                    <img src="img/logo.png" alt="" title="ביקור בדף הראשי">
                 </picture>
                 <figcaption>תפלה לשלמה</figcaption>
             </figure>
@@ -24,16 +24,16 @@
             <a href="#yfe">אודיו</a>
         </li>
         <li>
-            <a href="#mo">צור קשר</a>
+            <a href="javascript:void(0)">צור קשר</a>
         </li>
     </ul>
     <ul>
         <li>
-            <a href="#">התחברות</a>
+            <a href="#sign_in">התחברות</a>
         </li>
         <li>/</li>
         <li>
-            <a href="#">הרשמה</a>
+            <a href="#sign_up">הרשמה</a>
         </li>
     </ul>
     <input type="search" placeholder="התחל להקליד ולחץ אנטר בכדי לחפש באתר">

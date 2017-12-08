@@ -1,4 +1,4 @@
-<h6 contenteditable spellcheck="false">
+<h6>
     &copy; כל הזכויות שמורות. מכון בית תפלה
     <time></time>.
     <bdi>

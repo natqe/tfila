@@ -1,3 +1,7 @@
+<?php
+session_start();
+// $base_url = (isset($_SERVER['HTTPS']) ? "https" : "http") .'://' .$_SERVER['HTTP_HOST'] . '/';
+?>
 <!DOCTYPE html>
 <html lang="he">
 
@@ -17,6 +21,18 @@
     </main>
     <main id="tfila">
         <?php include 'html/body/tfila.php';?>
+    </main>
+
+    <?php if(!isset($_SESSION['user'])){ ?>
+    <main id="sign_in">
+        <?php include 'html/body/sign-in.php';?>
+    </main>
+    <main id="sign_up">
+        <?php include 'html/body/sign-up.php';?>
+    </main>
+    <?php }; ?>
+    <main id="404">
+        <?php include 'html/body/404.php';?>
     </main>
     <footer>
         <?php include 'html/body/footer.php';?>
