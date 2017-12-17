@@ -1,8 +1,14 @@
-@import url("https://fonts.googleapis.com/css?family=Varela+Round");
-
 @import "varibals";
 @import "mixins";
 
+@font-face {
+    font-family: 'Varela Round';
+    font-style: normal;
+    font-weight: 400;
+    src: local("Varela Round Regular"), local("VarelaRound-Regular"), url(https://fonts.gstatic.com/s/varelaround/v9/APH4jr0uSos5wiut5cpjrkByb1TKJa77egybnpn19yM.woff2) format("woff2");
+    unicode-range: U+0590 - 05FF, U+20AA, U+25CC, U+FB1D-FB4F;
+  }
+  
 :root {
     font: 16px 'Varela Round', Arial, sans-serif;
     direction: rtl;
@@ -108,6 +114,7 @@ body {
                         > a {
                             display: block;
                             border-radius: 10px;
+                            -webkit-transition: 0.3s ease-in;
                             transition: 0.3s ease-in;
 
                             &:link {
@@ -200,7 +207,6 @@ body {
 
         @include grid(12, 1fr, 2, 1fr);
 
-        display: none;
         grid-gap: 15px;
         text-align: justify;
 
@@ -233,8 +239,8 @@ body {
             display: block;
         }
 
-        &#home {
-            display: grid;
+        &[id='בית'] {
+            
         }
     }
 
@@ -244,11 +250,8 @@ body {
         display: block;
         text-align: center;
 
-        > h6 {
-            display: block;
-            font-size: .67rem;
-            margin: 34.95px 0;
-            font-weight: bold;
+        > small {
+            font-size: smaller;
 
             > bdi {
                 display: block;

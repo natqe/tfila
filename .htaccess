@@ -1,13 +1,39 @@
+Options FollowSymlinks
+
+# Options -indexes
+
 DirectoryIndex index.php
+# Use UTF-8 encoding for anything served text/plain or text/html
+AddDefaultCharset utf-8
+
+Options +MultiViews
+
 # Redirect /  /index
 
-RewriteEngine On
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^([^\.]+)$ $1.php [NC,L]
 
-# /index#500
-ErrorDocument 500 http://localhost/tfilaleshlomo/index#500
-# /index#401
-ErrorDocument 401 http://localhost/tfilaleshlomo/index#401
-# /index#404
-ErrorDocument 404 http://localhost/tfilaleshlomo/index#404
+# ErrorDocument 500 /500
+# ErrorDocument 401 /401
+# ErrorDocument 404 /404
+
+RewriteEngine On
+RewriteBase /
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . http://localhost/
+
+#To avoid from multiloading of files
+<IfModule mod_expires.c>
+ExpiresActive On
+ExpiresByType image/jpg "access 1 year"
+ExpiresByType image/jpeg "access 1 year"
+ExpiresByType image/gif "access 1 year"
+ExpiresByType image/png "access 1 year"
+ExpiresByType text/css "access 1 month"
+ExpiresByType text/html "access 1 month"
+ExpiresByType application/pdf "access 1 month"
+ExpiresByType text/x-javascript "access 1 month"
+ExpiresByType application/x-shockwave-flash "access 1 month"
+ExpiresByType image/x-icon "access 1 year"
+ExpiresDefault "access 1 month"
+</IfModule>

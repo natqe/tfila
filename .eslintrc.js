@@ -14,6 +14,7 @@ module.exports = {
             "error",
             "windows"
         ],
+        "no-useless-escape":0,
         "quotes": 0,
         "semi": [
             "error",
