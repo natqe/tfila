@@ -1,10 +1,7 @@
 <?php
-// session_start();
-$uri = $_SERVER['REQUEST_URI'] === '/' ? 'בית' : ltrim(urldecode($_SERVER['REQUEST_URI']), '/');
-// echo '<pre>';
-// print_r($_SERVER) ;
-// echo '<br><br>', $_SERVER['HTTP_USER_AGENT'],'</pre>';
-// die;
+// $conn = new PDO('localhost;root;;');
+$uri = ltrim(urldecode($_SERVER['REQUEST_URI']), '/') ?: 'בית';
+!is_file("html/body/$uri.html") ? $uri='404': false;
 ?>
 <?php if(isset($_GET['content'])) { 
     require_once "html/body/{$_GET['content']}.html";
