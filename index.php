@@ -1,5 +1,5 @@
 <?php
-session_start();
+// session_start();
 $uri = $_SERVER['REQUEST_URI'] === '/' ? 'בית' : ltrim(urldecode($_SERVER['REQUEST_URI']), '/');
 // echo '<pre>';
 // print_r($_SERVER) ;
