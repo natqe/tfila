@@ -1,5 +1,5 @@
 'use strict';
-const pages = ['תורה', 'תפילה', 'בית', 'התחברות', 'הרשמה', '404'];
+
 const title = document.title;
 const header = document.querySelector('header');
 const headerNav = header.querySelector('nav');
@@ -14,6 +14,7 @@ const main = document.querySelector('main');
 const footer = document.querySelector('footer');
 const footerSmall = footer.querySelector('small');
 const contents = [{ id: main.id, HTML: main.innerHTML }];
+const pages =<?=json_encode($pages)?>;
 function idFrom(uri) {
     return decodeURI(uri.split('/').pop());
 }

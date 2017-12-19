@@ -32,6 +32,7 @@ if(isset($_GET['content'])) {
     <main id="<?=$request_page?>"><?php require_once "html/body/main.html"?></main>
     <footer><?php require_once 'html/body/footer.html'?></footer>
     <script><?php require_once 'js/app.js'?></script>
+    <noscript>Your browser does not support JavaScript!</noscript>
 </body>
 </html>
 <?php }?>
