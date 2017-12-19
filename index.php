@@ -1,24 +1,27 @@
 <?php
-$pdo = new PDO('mysql:host=localhost;dbname=tfila;charset=utf8', 'root' , '');
-$pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+require_once 'secure/pdo.php';
 $fetch_pages = $pdo->query('SELECT * FROM pages')->fetchAll();
+usort($fetch_pages, function($a, $b) {
+    if ($a['created_at'] == $b['created_at']) return 0;
+    return ($a['created_at'] < $b['created_at']) ? -1 : 1;
+});
 $fetch_articles = $pdo->query('SELECT * FROM articles')->fetchAll();
+usort($fetch_articles, function($a, $b) {
+    if ($a['created_at'] == $b['created_at']) return 0;
+    return ($a['created_at'] < $b['created_at']) ? 1 : -1;
+});
+$fetch_prefaces = $pdo->query('SELECT * FROM prefaces')->fetchAll();
+foreach ($fetch_prefaces as $array) {
+    $is_preface[$array['article_id']] = $array['article_id'];
+}
 foreach ($fetch_pages as $array) {
     $pages[] = $array['name'];
 }
-// print_r($fetch_articles);
-// $stmt = $pdo->query('SELECT * FROM articles');
-
-// while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-//     echo $row['title']."<br>";
-// }
-
-// print_r($pages);
-// die;
 $pages[] = $home = 'בית';
 $pages[] = $not_found = '404';
 $pages[] = $sign_in = 'התחברות';
 $pages[] = $sign_up = 'הרשמה';
+$types = ['תוכן', 'אודיו', 'וידאו', 'פקט'];
 $request_page = ltrim(urldecode($_GET['content'] ?? $_SERVER['REQUEST_URI']), '/') ?: $home;
 if ($request_page !== $home && !in_array($request_page, $pages)) $request_page=$not_found;
 if(isset($_GET['content'])) {

@@ -1,30 +1,46 @@
 'use strict';
-
 const title = document.title;
 const header = document.querySelector('header');
 const headerNav = header.querySelector('nav');
-const headerNavUl1 = headerNav.querySelector('ul:nth-of-type(1)');
-const headerNavUl1Lis = headerNavUl1.getElementsByTagName('li');
-const headerNavUl1Li4 = headerNavUl1Lis[3];
-const headerNavUl1Li4A = headerNavUl1Li4.querySelector('a');
+const headerNavContact = headerNav.querySelector('[href^="javascript:void(0)"]');
 const main = document.querySelector('main');
-// const signup = document.getElementById('הרשמה');
-// const signupPass = signup.querySelector('input[name=su_pass]');
-// const signupPassConfirm = signup.querySelector('input[type=password]:not([name])');
 const footer = document.querySelector('footer');
 const footerSmall = footer.querySelector('small');
 const contents = [{ id: main.id, HTML: main.innerHTML }];
-const pages =<?=json_encode($pages)?>;
+const pages =<?= json_encode($pages) ?>;
 function idFrom(uri) {
     return decodeURI(uri.split('/').pop());
 }
-function changeTitle(toTitle) {
-    document.title = toTitle !== 'בית' ? `${title} | ${toTitle}` : title;
+function titleAndValidat(elemId) {
+    document.title = elemId !== 'בית' ? `${title} | ${elemId}` : title;
+    if (elemId === 'הרשמה') {
+        const signup = document.getElementById('הרשמה');
+        const signupPass = signup.querySelector('input[name=su_pass]');
+        const signupPassConfirm = signup.querySelector('input[type=password]:not([name])');
+        function validatePass() {
+            signupPass.value !== signupPassConfirm.value ? signupPassConfirm.setCustomValidity('סיסמא אינה תואמת') : signupPassConfirm.setCustomValidity('');
+        }
+        signupPass.onchange = validatePass;
+        signupPassConfirm.onkeyup = validatePass;
+    }
+    switch (elemId) {
+        case 'הרשמה':
+        case 'התחברות':
+            const inputEmail = document.querySelector('input[type=email]');
+            inputEmail.addEventListener('keyup', e => {
+                e.stopPropagation();
+                if (!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(inputEmail.value)) {
+                    inputEmail.setCustomValidity('הכנס כתובת אימייל תקינה');
+                } else {
+                    inputEmail.setCustomValidity('');
+                }
+            })
+    }
 }
 function mainInAction(content) {
     main.id = content.id;
     main.innerHTML = content.HTML;
-    changeTitle(content.id);
+    titleAndValidat(content.id);
 }
 function changeMain(toMain) {
     toMain = pages.find(page => { return page == (idFrom(toMain) || 'בית'); }) || '404';
@@ -42,12 +58,10 @@ function changeMain(toMain) {
             })
             .catch(err => console.log(err));
     }
-}
-function validatePass() {
-    signupPass.value !== signupPassConfirm.value ? signupPassConfirm.setCustomValidity('סיסמא אינה תואמת') : signupPassConfirm.setCustomValidity('');
+
 }
 
-changeTitle(main.id);
+titleAndValidat(main.id);
 for (const time of footerSmall.getElementsByTagName('time')) time.textContent = new Date().getFullYear();
 document.querySelectorAll('a:not([href^="#"]):not([href^="http"]):not([href^="javascript:void(0)"])').forEach(a => a.addEventListener('click', e => {
     e.stopPropagation();
@@ -59,64 +73,16 @@ document.querySelectorAll('a:not([href^="#"]):not([href^="http"]):not([href^="ja
     }
 }));
 this.addEventListener('popstate', () => document.querySelector('main').id === idFrom(location.pathname) || changeMain(location.pathname));
-headerNavUl1Li4A.addEventListener('click', e => {
+headerNavContact.addEventListener('click', e => {
     e.stopPropagation();
     const windowContact = window.open('contact', '_blank', 'height=300,width=300, top=220, left=500, scrollbars=no, resizable=no');
-    headerNavUl1Li4A.addEventListener('click', () => windowContact.close());
+    headerNavContact.addEventListener('click', () => windowContact.close());
 });
-document.querySelectorAll('input[type=email]').forEach(inputEmail => inputEmail.addEventListener('keyup', e => {
-    e.stopPropagation();
-    if (!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(inputEmail.value)) {
-        inputEmail.setCustomValidity('הכנס כתובת אימייל תקינה');
-    } else {
-        inputEmail.setCustomValidity('');
-    }
 
-}));
 setTimeout(() => pages.forEach(page =>
     contents.find(content => { return content.id === page; }) ||
     fetch(`?content=${page}`).then(res => { return res.text(); }).then(data => contents.push({ id: page, HTML: data }))
 ), 5000);
-// signupPass.onchange = validatePass;
-// signupPassConfirm.onkeyup = validatePass;
-
-
-
-
-        // const xhr = new XMLHttpRequest();
-        // xhr.open('GET', `?${toMain}`);
-        // xhr.onload = () => {
-        //     mainInAction(content = { id: toMain, HTML: xhr.responseText });
-        //     contents.push(content);
-        // };
-        // xhr.send();
-
-
-
-// const xhr = new XMLHttpRequest();
-// xhr.open('GET', encodeURI('?תורה'));
-// xhr.onload = () => console.log(xhr.responseText);
-// xhr.send();
-
-// fetch();
-
-// let alreadyLoaded = [];
-
-// function (arguments) {
-//     alreadyLoaded.push('id');
-// }
-
-// function callAjax(url, callback){
-//     const xhr = new XMLHttpRequest();
-//     xhr.onreadystatechange = () => xhr.readyState == 4 && xhr.status == 200 ? callback(xhr.responseText) : console.log(`Error:  ${xhr.status}`) ;
-//     xhr.open('GET', url, true);
-//     xhr.send();
-// }
-
-
-// callAjax(url, callback);
-
-
 
 
 

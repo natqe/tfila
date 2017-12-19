@@ -10,7 +10,17 @@ switch ($request_page) {
         break;
     default:
         foreach ($fetch_articles as $article) {
-            if ($article['page'] === $request_page) {
+            if (($article['page'] === $request_page) && isset($is_preface[$article['id']])){
+?>
+    <article id="<?=str_replace(' ','-',$article['title'])?>">
+            <h2><?=$article['title']?></h2>
+            <p><?=$article['body']?></p>
+    </article>
+<?php     
+            }
+        }
+        foreach ($fetch_articles as $article) {
+            if (($article['page'] === $request_page) && !isset($is_preface[$article['id']])) {
 ?>
     <article id="<?=str_replace(' ','-',$article['title'])?>">
             <h2><?=$article['title']?></h2>
@@ -22,13 +32,14 @@ switch ($request_page) {
 }
 ?>
 </section>
+
 <aside>
 <?php 
 if (isset($defualt_page)) {
     require_once "html/body/main/aside/$defualt_page.html";
 }else {
     foreach ($fetch_articles as $article) {
-        if ($article['page'] === $request_page) {
+        if ($article['page'] === $request_page && !isset($is_preface[$article['id']])) {
 ?>
 <a href=<?='#'.str_replace(' ','-',$article['title'])?>><?=$article['title']?></a><br>
 <?php

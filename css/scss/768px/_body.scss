@@ -1,0 +1,46 @@
+%body {
+  > header {
+    > nav {
+      grid-column: 1 / 25;
+
+      > h1 {
+        > a {
+          > figure {
+            > picture {
+              grid-row: 1 / 7;
+            }
+
+            > figcaption {
+              display: none;
+            }
+          }
+        }
+      }
+
+      > ul {
+        &:nth-of-type(1) {
+          grid-column: 6 / 25;
+        }
+
+        &:nth-of-type(2) {
+          display: none;
+        }
+      }
+    }
+  }
+
+  > main {
+    grid-column: 1 / 25;
+    grid-template-rows: 1fr;
+    padding-top: 125px;
+
+    > section {
+      grid-column: 1 / 25;
+     
+    }
+
+    > aside {
+      display: none;
+    }
+  }
+}
