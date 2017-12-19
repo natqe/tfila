@@ -32,14 +32,15 @@ function changeMain(toMain) {
         mainInAction(content);
     } else {
         fetch(`?content=${toMain}`)
-            .then(res => { return res.text(); })
+            .then(res => {
+                return res.text();
+            })
             .then(data => {
-                mainInAction(content = { id: toMain, HTML: data });
-                contents.push(content);
+                contents.push(content = { id: toMain, HTML: data });
+                mainInAction(content);
             })
             .catch(err => console.log(err));
     }
-
 }
 function validatePass() {
     signupPass.value !== signupPassConfirm.value ? signupPassConfirm.setCustomValidity('סיסמא אינה תואמת') : signupPassConfirm.setCustomValidity('');
@@ -50,10 +51,13 @@ for (const time of footerSmall.getElementsByTagName('time')) time.textContent = 
 document.querySelectorAll('a:not([href^="#"]):not([href^="http"]):not([href^="javascript:void(0)"])').forEach(a => a.addEventListener('click', e => {
     e.stopPropagation();
     e.preventDefault();
-    changeMain(a.pathname);
-    history.pushState({}, '', a.pathname);
+    const aPathname = a.pathname;
+    if (aPathname !== location.pathname) {
+        changeMain(aPathname);
+        history.pushState({}, '', aPathname);
+    }
 }));
-this.addEventListener('popstate', () => changeMain(location.pathname));
+this.addEventListener('popstate', () => document.querySelector('main').id === idFrom(location.pathname) || changeMain(location.pathname));
 headerNavUl1Li4A.addEventListener('click', e => {
     e.stopPropagation();
     const windowContact = window.open('contact', '_blank', 'height=300,width=300, top=220, left=500, scrollbars=no, resizable=no');

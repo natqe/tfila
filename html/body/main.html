@@ -1,0 +1,39 @@
+<section>
+<?php
+switch ($request_page) {
+    case $home:
+    case $sign_in:
+    case $sign_up:
+    case $not_found:
+        require_once "html/body/main/section/$request_page.html";
+        $defualt_page = $request_page;
+        break;
+    default:
+        foreach ($fetch_articles as $article) {
+            if ($article['page'] === $request_page) {
+?>
+    <article id="<?=str_replace(' ','-',$article['title'])?>">
+            <h2><?=$article['title']?></h2>
+            <p><?=$article['body']?></p>
+    </article>
+<?php        
+            }
+        }
+}
+?>
+</section>
+<aside>
+<?php 
+if (isset($defualt_page)) {
+    require_once "html/body/main/aside/$defualt_page.html";
+}else {
+    foreach ($fetch_articles as $article) {
+        if ($article['page'] === $request_page) {
+?>
+<a href=<?='#'.str_replace(' ','-',$article['title'])?>><?=$article['title']?></a><br>
+<?php
+        }
+    }
+}
+?>
+</aside>

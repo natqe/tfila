@@ -1,0 +1,19 @@
+<form method="post" autocomplete='off'>
+    <fieldset>
+        <legend>הרשמה לאתר:</legend>
+        <label>
+            <span>דואר אלקטרוני *</span>
+            <input type="email" name="email" placeholder="name@email.com" spellcheck="false" required <?='value=' , $_POST[ 'email']??''?>>
+        </label>
+        <label>
+            <span>סיסמא *</span>
+            <input type="password" name="su_pass" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" required>
+        </label>
+        <label>
+            <span>אימות סיסמא *</span>
+            <input type="password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" required>
+        </label>
+    </fieldset>
+    <input type="submit">
+    <input type="reset">
+</form>
