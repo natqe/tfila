@@ -39,10 +39,10 @@ body {
 }
 
 @media (max-width: 768px) {
+  @import "768px/body";
   :root {
     font-size: 14px;
   }
-  @import "768px/body";
 
   body {
     @extend %body;

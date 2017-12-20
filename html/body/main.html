@@ -1,42 +1,48 @@
 <section>
 <?php
-switch ($request_page) {
-    case $home:
-    case $sign_in:
-    case $sign_up:
-    case $not_found:
-        require_once "html/body/main/section/$request_page.html";
-        $defualt_page = $request_page;
-        break;
-    default:
-        foreach ($fetch_articles as $article) {
-            if (($article['page'] === $request_page) && isset($is_preface[$article['id']])){
+
+if (!in_array($request_page, array_column($fetch_pages, 'name'))) {
+     require_once "html/body/main/section/$request_page.html";
+} else {
+    $fetch_articles = $pdo->query('SELECT * FROM articles')->fetchAll();
+    usort($fetch_articles, function($a, $b) {
+        if ($a['created_at'] == $b['created_at']) return 0;
+        return ($a['created_at'] < $b['created_at']) ? 1 : -1;
+    });
+    $fetch_prefaces = $pdo->query('SELECT * FROM prefaces')->fetchAll();
+    foreach ($fetch_prefaces as $array) {
+            $is_preface[$array['article_id']] = $array['article_id'];
+    }
+
+    foreach ($fetch_articles as $article) {
+        if (($article['page'] === $request_page) && isset($is_preface[$article['id']])){
 ?>
     <article id="<?=str_replace(' ','-',$article['title'])?>">
             <h2><?=$article['title']?></h2>
             <p><?=$article['body']?></p>
     </article>
 <?php     
-            }
         }
-        foreach ($fetch_articles as $article) {
-            if (($article['page'] === $request_page) && !isset($is_preface[$article['id']])) {
+    }
+
+    foreach ($fetch_articles as $article) {
+        if (($article['page'] === $request_page) && !isset($is_preface[$article['id']])) {
 ?>
     <article id="<?=str_replace(' ','-',$article['title'])?>">
             <h2><?=$article['title']?></h2>
             <p><?=$article['body']?></p>
     </article>
 <?php        
-            }
         }
+    }
 }
 ?>
 </section>
 
 <aside>
 <?php 
-if (isset($defualt_page)) {
-    require_once "html/body/main/aside/$defualt_page.html";
+if (!in_array($request_page, array_column($fetch_pages, 'name'))) {
+    require_once "html/body/main/aside/$request_page.html";
 }else {
     foreach ($fetch_articles as $article) {
         if ($article['page'] === $request_page && !isset($is_preface[$article['id']])) {

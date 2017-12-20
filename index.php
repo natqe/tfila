@@ -5,25 +5,14 @@ usort($fetch_pages, function($a, $b) {
     if ($a['created_at'] == $b['created_at']) return 0;
     return ($a['created_at'] < $b['created_at']) ? -1 : 1;
 });
-$fetch_articles = $pdo->query('SELECT * FROM articles')->fetchAll();
-usort($fetch_articles, function($a, $b) {
-    if ($a['created_at'] == $b['created_at']) return 0;
-    return ($a['created_at'] < $b['created_at']) ? 1 : -1;
-});
-$fetch_prefaces = $pdo->query('SELECT * FROM prefaces')->fetchAll();
-foreach ($fetch_prefaces as $array) {
-    $is_preface[$array['article_id']] = $array['article_id'];
-}
-foreach ($fetch_pages as $array) {
-    $pages[] = $array['name'];
-}
+$pages = array_column($fetch_pages, 'name');
 $pages[] = $home = 'בית';
 $pages[] = $not_found = '404';
 $pages[] = $sign_in = 'התחברות';
 $pages[] = $sign_up = 'הרשמה';
 $types = ['תוכן', 'אודיו', 'וידאו', 'פקט'];
 $request_page = ltrim(urldecode($_GET['content'] ?? $_SERVER['REQUEST_URI']), '/') ?: $home;
-if ($request_page !== $home && !in_array($request_page, $pages)) $request_page=$not_found;
+if ($request_page !== $home && !in_array($request_page, $pages)) $request_page = $not_found;
 if(isset($_GET['content'])) {
     if (in_array($_GET['content'], $pages)) require_once "html/body/main.html";
 }else{ ?>
