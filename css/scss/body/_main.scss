@@ -39,6 +39,9 @@
     width: 150px;
     overflow-y: scroll;
     overflow-x: hidden;
+    >a{
+      display: block;
+    }
   }
 
   &[id='בית'] {

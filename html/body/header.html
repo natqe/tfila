@@ -15,18 +15,19 @@
     </h1>
     <ul>
 <?php 
-        foreach ($fetch_pages as $page) {
+foreach ($fetch_pages as $page) {
 ?>
         <li>
             <a href=<?=$page['name']?>><?=$page['name']?></a>
         </li>
 <?php 
-        }
+}
 ?>
         <li>
             <a href="javascript:void(0)">צור קשר</a>
         </li>
     </ul>
+<?php if(!isset($_SESSION['user'])){?>
     <ul>
         <li>
             <a href=<?=$sign_in?>><?=$sign_in?></a>
@@ -36,5 +37,6 @@
             <a href=<?=$sign_up?>><?=$sign_up?></a>
         </li>
     </ul>
+<?php }?>
     <input type="search" placeholder="התחל להקליד ולחץ אנטר בכדי לחפש באתר">
 </nav>

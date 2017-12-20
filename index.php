@@ -8,11 +8,12 @@ usort($fetch_pages, function($a, $b) {
 $pages = array_column($fetch_pages, 'name');
 $pages[] = $home = 'בית';
 $pages[] = $not_found = '404';
-$pages[] = $sign_in = 'התחברות';
-$pages[] = $sign_up = 'הרשמה';
+if (!isset($_SESSION['user'])) {
+    $pages[] = $sign_in = 'התחברות';
+    $pages[] = $sign_up = 'הרשמה';
+}
 $types = ['תוכן', 'אודיו', 'וידאו', 'פקט'];
-$request_page = ltrim(urldecode($_GET['content'] ?? $_SERVER['REQUEST_URI']), '/') ?: $home;
-if ($request_page !== $home && !in_array($request_page, $pages)) $request_page = $not_found;
+$request_page = ($_GET['content'] ??  ltrim(urldecode($_SERVER['REQUEST_URI']), '/')) ?: $home;
 if(isset($_GET['content'])) {
     if (in_array($_GET['content'], $pages)) require_once "html/body/main.html";
 }else{ ?>

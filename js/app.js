@@ -12,9 +12,10 @@ function idFrom(uri) {
     return decodeURI(uri.split('/').pop());
 }
 function titleAndValidat(elemId) {
-    document.title = elemId !== 'בית' ? `${title} | ${elemId}` : title;
-    if (elemId === 'הרשמה') {
-        const signup = document.getElementById('הרשמה');
+    document.title = elemId !== '<?= $home ?>' ? `${title} | ${elemId}` : title;
+<?php if(!isset($_SESSION['user'])): ?>
+    if (elemId === '<?= $sign_up ?>') {
+        const signup = document.getElementById('<?= $sign_up ?>');
         const signupPass = signup.querySelector('input[name=su_pass]');
         const signupPassConfirm = signup.querySelector('input[type=password]:not([name])');
         function validatePass() {
@@ -23,9 +24,10 @@ function titleAndValidat(elemId) {
         signupPass.onchange = validatePass;
         signupPassConfirm.onkeyup = validatePass;
     }
+
     switch (elemId) {
-        case 'הרשמה':
-        case 'התחברות':
+        case '<?= $sign_up ?>':
+        case '<?= $sign_in ?>':
             const inputEmail = document.querySelector('input[type=email]');
             inputEmail.addEventListener('keyup', e => {
                 e.stopPropagation();
@@ -36,6 +38,7 @@ function titleAndValidat(elemId) {
                 }
             })
     }
+<?php endif; ?>
 }
 function mainInAction(content) {
     main.id = content.id;
@@ -43,7 +46,7 @@ function mainInAction(content) {
     titleAndValidat(content.id);
 }
 function changeMain(toMain) {
-    toMain = pages.find(page => { return page == (idFrom(toMain) || 'בית'); }) || '404';
+    toMain = pages.find(page => { return page == (idFrom(toMain) || '<?= $home ?>'); }) || '<?= $not_found ?>';
     let content = contents.find(content => { return content.id == toMain; });
     if (content) {
         mainInAction(content);
@@ -78,7 +81,6 @@ headerNavContact.addEventListener('click', e => {
     const windowContact = window.open('contact', '_blank', 'height=300,width=300, top=220, left=500, scrollbars=no, resizable=no');
     headerNavContact.addEventListener('click', () => windowContact.close());
 });
-
 setTimeout(() => pages.forEach(page =>
     contents.find(content => { return content.id === page; }) ||
     fetch(`?content=${page}`).then(res => { return res.text(); }).then(data => contents.push({ id: page, HTML: data }))
