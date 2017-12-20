@@ -23,7 +23,7 @@ if (!in_array($request_page, array_column($fetch_pages, 'name'))) {
 <?php     
         }
     }
-foreach ($fetch_articles as $article) {
+    foreach ($fetch_articles as $article) {
         if (!in_array($article['id'], $prefaces)) {
 ?>
     <article id="<?=str_replace(' ','-',$article['title'])?>">
