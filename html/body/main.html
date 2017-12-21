@@ -1,49 +1,37 @@
 <?php
 if (!in_array($request_page, $pages)) $request_page = $not_found;
+if($request_page !== $sign_in && $request_page !== $sign_up){
+    $fetch_preface = $pdo->query("SELECT title, body FROM prefaces WHERE page='$request_page'")->fetch();
+}
 if (!in_array($request_page, array_column($fetch_pages, 'name'))) {
-     require_once "html/body/main/$request_page.html";
+    require_once "html/body/main/$request_page.html";
 } else {
-    $fetch_articles = $pdo->query("SELECT * FROM articles WHERE page='$request_page'" )->fetchAll();
-    usort($fetch_articles, function($a, $b) {
-        if ($a['created_at'] == $b['created_at']) return 0;
-        return ($a['created_at'] < $b['created_at']) ? 1 : -1;
-    });
-    $fetch_prefaces = $pdo->query('SELECT * FROM prefaces')->fetchAll();
-    $prefaces = array_column($fetch_prefaces, 'article_id');
 ?>
 <section>
+    <article>
+            <h2><?=$fetch_preface['title'] ?? ''?></h2>
+            <p><?=$fetch_preface['body'] ?? ''?></p>
+    </article>
 <?php
+    $fetch_articles = $pdo->query(
+        "SELECT title, SUBSTRING(body, 1, 200) as sub_body FROM articles WHERE page='$request_page' ORDER BY created_at DESC"
+    )->fetchAll();
     foreach ($fetch_articles as $article) {
-        if (in_array($article['id'], $prefaces)){
 ?>
-    <article id="<?=str_replace(' ','-',$article['title'])?>">
+    <article id="<?='#'.str_replace(' ', '-', $article['title'])?>">
             <h2><?=$article['title']?></h2>
-            <p><?=$article['body']?></p>
+            <p><?=$article['sub_body'] . '...'?></p>
     </article>
-<?php     
-        }
+<?php
     }
-    foreach ($fetch_articles as $article) {
-        if (!in_array($article['id'], $prefaces)) {
-?>
-    <article id="<?=str_replace(' ','-',$article['title'])?>">
-            <h2><?=$article['title']?></h2>
-            <p><?=$article['body']?></p>
-    </article>
-<?php        
-        }
-    }
-
 ?>
 </section>
 <aside>
-<?php 
-    foreach ($fetch_articles as $article) {
-        if (!in_array($article['id'], $prefaces)) {
-?>
-<a href=<?='#'.str_replace(' ','-',$article['title'])?>><?=$article['title']?></a>
 <?php
-        }
+    foreach ($fetch_articles as $article) {
+?>
+    <a href=<?='#' . str_replace(' ', '-', $article['title'])?>><?=$article['title']?></a>
+<?php
     }
 }
 ?>
