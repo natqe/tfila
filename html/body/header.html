@@ -2,12 +2,12 @@
 </header>
 <nav>
     <h1>
-        <a href="/">
+        <a href=/ >
             <figure>
                 <picture>
-                    <source media="(max-width: 768px )" srcset="img/logo.png">
-                    <source media="(max-width: 480px )" srcset="img/logo.png">
-                    <img src="img/logo.png" alt="" title="ביקור בדף הראשי">
+                    <source media=(max-width: 768px) srcset=img/logo.png>
+                    <source media=(max-width: 480px ) srcset=img/logo.png>
+                    <img src=img/logo.png alt="" title="ביקור בדף הראשי">
                 </picture>
                 <figcaption>תפלה לשלמה</figcaption>
             </figure>
@@ -24,7 +24,7 @@ foreach ($fetch_pages as $page) {
 }
 ?>
         <li>
-            <a href="javascript:void(0)">צור קשר</a>
+            <a href=javascript:void(0)>צור קשר</a>
         </li>
     </ul>
 <?php if(!isset($_SESSION['user'])){?>
@@ -38,5 +38,5 @@ foreach ($fetch_pages as $page) {
         </li>
     </ul>
 <?php }?>
-    <input type="search" placeholder="התחל להקליד ולחץ אנטר בכדי לחפש באתר">
+    <input type=search placeholder="התחל להקליד ולחץ אנטר בכדי לחפש באתר">
 </nav>

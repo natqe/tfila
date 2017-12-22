@@ -1,0 +1,6 @@
+<?php 
+    $prepare_p = $pdo->prepare("SELECT body FROM articles WHERE id = ? ");
+    $prepare_p->execute([$_GET['p_from']]);
+    $fetch_p = $prepare_p->fetch();
+    echo $fetch_p['body'];
+?>

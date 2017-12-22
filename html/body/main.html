@@ -1,11 +1,11 @@
 <?php
-if (!in_array($request_page, $pages)) $request_page = $not_found;
 if($request_page !== $sign_in && $request_page !== $sign_up){
     $fetch_preface = $pdo->query("SELECT title, body FROM prefaces WHERE page='$request_page'")->fetch();
 }
-if (!in_array($request_page, array_column($fetch_pages, 'name'))) {
+if (!in_array($request_page, $pages_from_db)) {
     require_once "html/body/main/$request_page.html";
 } else {
+    foreach ($fetch_pages as $page) if ($page['name'] === $request_page) $type = $page['type'];
 ?>
 <section>
     <article>
@@ -14,13 +14,13 @@ if (!in_array($request_page, array_column($fetch_pages, 'name'))) {
     </article>
 <?php
     $fetch_articles = $pdo->query(
-        "SELECT title, SUBSTRING(body, 1, 200) as sub_body FROM articles WHERE page='$request_page' ORDER BY created_at DESC"
+        "SELECT id, title, SUBSTRING(body, 1, 200) as sub_body FROM articles WHERE page='$request_page' ORDER BY created_at DESC"
     )->fetchAll();
     foreach ($fetch_articles as $article) {
 ?>
-    <article id="<?='#'.str_replace(' ', '-', $article['title'])?>">
-            <h2><?=$article['title']?></h2>
-            <p><?=$article['sub_body'] . '...'?></p>
+    <article id=#<?=str_replace(' ', '-', $article['title'])?>>
+            <h2 data-id=<?=$article['id']?>><?=$article['title']?></h2>
+            <p id=<?=$article['id']?>><?=mb_substr($article['sub_body'], 0, rand(150, strlen($article['sub_body'])-1))?>...</p>
     </article>
 <?php
     }
@@ -30,7 +30,7 @@ if (!in_array($request_page, array_column($fetch_pages, 'name'))) {
 <?php
     foreach ($fetch_articles as $article) {
 ?>
-    <a href=<?='#' . str_replace(' ', '-', $article['title'])?>><?=$article['title']?></a>
+    <a href=#<?=str_replace(' ', '-', $article['title'])?> data-id=<?=$article['id']?>><?=$article['title']?></a>
 <?php
     }
 }
