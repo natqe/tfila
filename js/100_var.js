@@ -1,4 +1,4 @@
-const all = 'all'; 
+const all = '*'; 
 const title = document.title;
 const[header, main, footer] = sele('header', 'main', 'footer');
 const[headerNav, footerSmall] = [sele(header, 'nav'), sele(footer, 'small')];

@@ -1,0 +1,1 @@
+const get = (name, val, format) => fetch(`?${name}=${val}`).then(res => format === 'json' ? res.json() : res.text());
