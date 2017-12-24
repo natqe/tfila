@@ -7,9 +7,10 @@ const titleAndValidat = elemId => {
     if (elemId === '<?=$sign_up?>') {
         const signup = sele("[id='<?=$sign_up?>']");
         const [signupPass, signupPassConfirm] = sele(signup, 'input[name=su_pass]', 'input[type=password]:not([name])');
-        [signupPass.onchange, signupPassConfirm.onkeyup] = [() => signupPass.value !== signupPassConfirm.value ?
-            signupPassConfirm.setCustomValidity('סיסמא אינה תואמת') :
-            signupPassConfirm.setCustomValidity('')];
+        [signupPass.onchange, signupPassConfirm.onkeyup] =
+            [() => signupPass.value !== signupPassConfirm.value ?
+                signupPassConfirm.setCustomValidity('סיסמא אינה תואמת') :
+                signupPassConfirm.setCustomValidity('')];
     }
 
     switch (elemId) {
@@ -25,7 +26,7 @@ const titleAndValidat = elemId => {
                 }
             });
     }
-    
+
     '<?php endif;?>';
 
     const currentPage = fPages.find(page => page.name === elemId);
