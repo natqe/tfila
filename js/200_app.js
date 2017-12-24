@@ -1,6 +1,7 @@
+
 titleAndValidat(main.id);
 
-sele(all, footerSmall, 'time').forEach(time => time.textContent = new Date().getFullYear());
+sele(all, 'time', footerSmall).forEach(time => time.textContent = new Date().getFullYear());
 
 sele(all, 'a:not([href^="#"]):not([href^="http"]):not([href^="javascript:void(0)"])').forEach(a => a.addEventListener('click', e => {
     e.stopPropagation();
@@ -12,6 +13,14 @@ sele(all, 'a:not([href^="#"]):not([href^="http"]):not([href^="javascript:void(0)
 }));
 
 this.addEventListener('popstate', () => sele('main').id === idFrom(location.pathname) || changeMain(location.pathname));
+
+window.addEventListener('hashchange', () => {
+    const currentPage = fPages.find(page => page.name === idFrom(location.pathname));
+    if (currentPage && currentPage.type !== 'וידאו' && currentPage.type !== 'אודיו') {
+        const p = !location.hash || sele(sele(decodeURI(location.hash)), '[id]');
+        (!p || isNaN(p.id)) || getAndSetP(p);
+    }
+});
 
 headerNavContact.addEventListener('click', e => {
     e.stopPropagation();

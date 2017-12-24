@@ -1,4 +1,5 @@
 'use strict';
+
 // sele function:
 // arg == 1: select elem from the dom
 // arg == 2: if the first arg is "*" - select * from the dom by the second arg - return array
@@ -8,27 +9,28 @@
 const sele = (...args) => {
 
     let result;
-    let nodeelem;
-
+    let nodelem;
+    const includeNode = array => array.find(item => item.nodeType === Node.ELEMENT_NODE);
+    
     if (args.length === 1) {
 
         return document.querySelector(args[0]);
 
-    } else if (!args.find(item => item === '*') && !args.find(item => item.nodeType === Node.ELEMENT_NODE)) {
+    } else if (!args.includes('*') && !includeNode(args)) {
         
         result = args.map(item => document.querySelector(item));
         
-    } else if (args.find(item => item === '*') && !args.find(item => item.nodeType === Node.ELEMENT_NODE)) {
+    } else if (args.includes('*') && !includeNode(args)) {
 
         result = args.filter(item => item !== '*').map(item => document.querySelectorAll(item));
 
-    } else if (!args.find(item => item === '*') && (nodeelem = args.find(item => item.nodeType === Node.ELEMENT_NODE))) {
+    } else if (!args.includes('*') && (nodelem = includeNode(args))) {
 
-        result = args.filter(item => item.nodeType !== Node.ELEMENT_NODE).map(item => nodeelem.querySelector(item));
+        result = args.filter(item => item.nodeType !== Node.ELEMENT_NODE).map(item => nodelem.querySelector(item));
 
-    } else if (args.find(item => item === '*') && (nodeelem = args.find(item => item.nodeType === Node.ELEMENT_NODE))) {
+    } else if (args.includes('*') && (nodelem = includeNode(args))) {
 
-        result = args.filter(item => item.nodeType !== Node.ELEMENT_NODE && item !== '*').map(item => nodeelem.querySelectorAll(item));
+        result = args.filter(item => item.nodeType !== Node.ELEMENT_NODE && item !== '*').map(item => nodelem.querySelectorAll(item));
 
     }
     

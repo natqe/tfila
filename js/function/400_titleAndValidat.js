@@ -3,6 +3,7 @@ const titleAndValidat = elemId => {
     document.title = elemId !== '<?=$home?>' ? `${title} | ${elemId}` : title;
 
     '<?php if(!isset($_SESSION["user"])):?>';
+
     if (elemId === '<?=$sign_up?>') {
         const signup = sele("[id='<?=$sign_up?>']");
         const [signupPass, signupPassConfirm] = sele(signup, 'input[name=su_pass]', 'input[type=password]:not([name])');
@@ -10,6 +11,7 @@ const titleAndValidat = elemId => {
             signupPassConfirm.setCustomValidity('סיסמא אינה תואמת') :
             signupPassConfirm.setCustomValidity('')];
     }
+
     switch (elemId) {
         case '<?=$sign_up?>':
         case '<?=$sign_in?>':
@@ -23,6 +25,7 @@ const titleAndValidat = elemId => {
                 }
             });
     }
+    
     '<?php endif;?>';
 
     const currentPage = fPages.find(page => page.name === elemId);
@@ -36,24 +39,15 @@ const titleAndValidat = elemId => {
                 if (p.getAttribute('setOld')) {
                     p.innerHTML = oldParas.find(old => old.id === link.dataset.id).HTML;
                     p.removeAttribute('setOld');
-                    aToScroll(link, p);
                 } else {
                     p.innerHTML = para.HTML;
                     p.setAttribute('setOld', link.dataset.id);
-                    aToScroll(link, p);
                 }
-            }else {
-                get('p_from', link.dataset.id).then(data => {
-                    paras.push({ id: link.dataset.id, HTML: data });
-                    const p = sele(`[id='${link.dataset.id}']`);
-                    oldParas.push({ id: link.dataset.id, HTML: p.innerHTML });
-                    p.innerHTML = data;
-                    p.setAttribute('setOld', link.dataset.id);
-                    aToScroll(link, p);
-                }).catch(err =>
-                    console.log(err));
+            } else {
+                getAndSetP(sele(`[id='${link.dataset.id}']`));
             }
         }));
+
 
     }
 
