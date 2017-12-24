@@ -45,3 +45,63 @@ headerNavInput.addEventListener('keypress', e => {
         }
     }
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    const currentPage = fPages.find(page => page.name === elemId);
+    if (currentPage && currentPage.type !== 'וידאו' && currentPage.type !== 'אודיו') {
+
+        sele(all, '[data-id]').forEach(link => link.addEventListener('click', e => {
+            e.stopPropagation();
+            let para = paras.find(p => p.id == link.dataset.id);
+            if (para) {
+                const p = sele(`[id='${link.dataset.id}']`);
+                if (p.getAttribute('setOld')) {
+                    if(location.hash === link.hash) {
+                        e.preventDefault();
+                        history.pushState({}, '', location.pathname);
+                    }
+                    p.innerHTML = oldParas.find(old => old.id === link.dataset.id).HTML;
+                    p.removeAttribute('setOld');
+                } else {
+                    p.innerHTML = para.HTML;
+                    p.setAttribute('setOld', link.dataset.id);
+                }
+            } else {
+                getAndSetP(sele(`[id='${link.dataset.id}']`));
+            }
+        }));
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

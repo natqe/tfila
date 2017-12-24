@@ -1,7 +1,11 @@
 
+sele(all, 'time', footerSmall).forEach(time => time.textContent = new Date().getFullYear());
+
 titleAndValidat(main.id);
 
-sele(all, 'time', footerSmall).forEach(time => time.textContent = new Date().getFullYear());
+loadPFromHash();
+
+!location.hash || getAndSetP(sele(sele(decodeURI(location.hash)), '[id]'));
 
 sele(all, 'a:not([href^="#"]):not([href^="http"]):not([href^="javascript:void(0)"])').forEach(a => a.addEventListener('click', e => {
     e.stopPropagation();
@@ -12,15 +16,18 @@ sele(all, 'a:not([href^="#"]):not([href^="http"]):not([href^="javascript:void(0)
     }
 }));
 
-this.addEventListener('popstate', () => sele('main').id === idFrom(location.pathname) || changeMain(location.pathname));
-
-window.addEventListener('hashchange', () => {
-    const currentPage = fPages.find(page => page.name === idFrom(location.pathname));
-    if (currentPage && currentPage.type !== 'וידאו' && currentPage.type !== 'אודיו') {
-        const p = !location.hash || sele(sele(decodeURI(location.hash)), '[id]');
-        (!p || isNaN(p.id)) || getAndSetP(p);
+this.addEventListener('popstate', () => {
+    sele('main').id === idFrom(location.pathname) || changeMain(location.pathname);
+    if (!location.hash) {
+        const theP = sele('[setOld]');
+        !theP || setOldP(theP);
+    } else {
+        sele(all, `article[id]:not([id='${location.hash.replace("#", "")}'])`).forEach(article => setOldP(sele(article, '[id]')));
+        loadPFromHash();
     }
 });
+
+this.addEventListener('hashchange', loadPFromHash);
 
 headerNavContact.addEventListener('click', e => {
     e.stopPropagation();

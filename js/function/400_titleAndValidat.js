@@ -32,24 +32,18 @@ const titleAndValidat = elemId => {
     const currentPage = fPages.find(page => page.name === elemId);
     if (currentPage && currentPage.type !== 'וידאו' && currentPage.type !== 'אודיו') {
 
-        sele(all, '[data-id]').forEach(link => link.addEventListener('click', e => {
-            e.stopPropagation();
-            let para = paras.find(p => p.id == link.dataset.id);
-            if (para) {
-                const p = sele(`[id='${link.dataset.id}']`);
-                if (p.getAttribute('setOld')) {
-                    p.innerHTML = oldParas.find(old => old.id === link.dataset.id).HTML;
-                    p.removeAttribute('setOld');
+
+        sele(all, 'a[href^="#"][data-id]').forEach(a => a.addEventListener('click', e => {
+            if (location.hash) {
+                if (location.hash === a.hash) {
+                    e.preventDefault();
+                    history.pushState({}, '', location.pathname);
+                    const theP = sele(`[id='${a.dataset.id}']`);
+                    !theP || setOldP(theP);
                 } else {
-                    p.innerHTML = para.HTML;
-                    p.setAttribute('setOld', link.dataset.id);
+                    setOldP(sele(sele(decodeURI(location.hash)), '[id]'));
                 }
-            } else {
-                getAndSetP(sele(`[id='${link.dataset.id}']`));
             }
         }));
-
-
     }
-
 };
