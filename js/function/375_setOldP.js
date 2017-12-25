@@ -1,4 +1,7 @@
 function setOldP(theP) {
-    theP.innerHTML = oldParas.find(old => old.id === theP.id).HTML;
-    theP.removeAttribute('setOld');
+    const oldPara = oldParas.find(old => old.id === theP.id);
+    if (oldPara) {
+        theP.innerHTML = oldPara.HTML;
+        theP.removeAttribute('setOld');
+    }
 }

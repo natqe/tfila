@@ -19,8 +19,8 @@ if (!in_array($request_page, $pages_from_db)) {
     foreach ($fetch_articles as $article) {
 ?>
     <article id=<?=str_replace(' ', '-', $article['title'])?>>
-            <h2 data-id=<?=$article['id']?>><a href=#<?=str_replace(' ', '-', $article['title'])?> data-id=<?=$article['id']?>><?=$article['title']?></a></h2>
-            <p id=<?=$article['id']?>><?=mb_substr($article['sub_body'], 0, rand(150, strlen($article['sub_body'])-1))?>...</p>
+            <h2><a href=#<?=str_replace(' ', '-', $article['title'])?> data-id=<?=$article['id']?>><?=$article['title']?></a></h2>
+            <p id=<?=$article['id']?>><?=mb_substr($article['sub_body'], 0, mt_rand(150, strlen($article['sub_body'])-1))?>...</p>
     </article>
 <?php
     }

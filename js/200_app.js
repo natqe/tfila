@@ -5,7 +5,8 @@ titleAndValidat(main.id);
 
 loadPFromHash();
 
-!location.hash || getAndSetP(sele(sele(decodeURI(location.hash)), '[id]'));
+if (location.hash) shiftWindow();
+window.addEventListener("hashchange", shiftWindow);
 
 sele(all, 'a:not([href^="#"]):not([href^="http"]):not([href^="javascript:void(0)"])').forEach(a => a.addEventListener('click', e => {
     e.stopPropagation();
@@ -20,14 +21,12 @@ this.addEventListener('popstate', () => {
     sele('main').id === idFrom(location.pathname) || changeMain(location.pathname);
     if (!location.hash) {
         const theP = sele('[setOld]');
-        !theP || setOldP(theP);
+        if (theP) setOldP(theP);
     } else {
-        sele(all, `article[id]:not([id='${location.hash.replace("#", "")}'])`).forEach(article => setOldP(sele(article, '[id]')));
+        sele(all, `article[id]:not([id='${decodeURI(location.hash.replace("#", ""))}'])`).forEach(article => setOldP(sele(article, '[id]')));
         loadPFromHash();
     }
 });
-
-this.addEventListener('hashchange', loadPFromHash);
 
 headerNavContact.addEventListener('click', e => {
     e.stopPropagation();
@@ -38,3 +37,4 @@ headerNavContact.addEventListener('click', e => {
 setTimeout(() => pages.forEach(page =>
     contents.find(content => content.id === page) || get('content', page).then(data => contents.push({ id: page, HTML: data }))
 ), 5000);
+

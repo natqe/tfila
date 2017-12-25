@@ -32,18 +32,19 @@ const titleAndValidat = elemId => {
     const currentPage = fPages.find(page => page.name === elemId);
     if (currentPage && currentPage.type !== 'וידאו' && currentPage.type !== 'אודיו') {
 
-
         sele(all, 'a[href^="#"][data-id]').forEach(a => a.addEventListener('click', e => {
+
             if (location.hash) {
                 if (location.hash === a.hash) {
                     e.preventDefault();
                     history.pushState({}, '', location.pathname);
                     const theP = sele(`[id='${a.dataset.id}']`);
-                    !theP || setOldP(theP);
-                } else {
-                    setOldP(sele(sele(decodeURI(location.hash)), '[id]'));
-                }
+                    if (theP) setOldP(theP);
+                } 
             }
+
         }));
+
     }
+    
 };
