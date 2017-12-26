@@ -25,7 +25,7 @@
         display: block;
         font-weight: bold;
         z-index: 1;
-
+        justify-self: center;
         > a {
           &:link {
             color: #cccccc;
@@ -54,12 +54,10 @@
           }
 
           > figure {
-            @include grid(ro, 6, 1fr);
             justify-items: center;
             align-items: center;
 
             > picture {
-              grid-row: 1 / 6;
 
               > source {
               }
@@ -68,10 +66,8 @@
                 display: inline-block;
               }
             }
-
-            > figcaption {
-              grid-row: 6 / 7;
-              display: block;
+            >figcaption{
+              display: none
             }
           }
         }

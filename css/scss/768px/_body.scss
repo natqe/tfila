@@ -9,10 +9,6 @@
             > picture {
               grid-row: 1 / 7;
             }
-
-            > figcaption {
-              display: none;
-            }
           }
         }
       }
@@ -32,11 +28,9 @@
   > main {
     grid-column: 1 / 25;
     grid-template-rows: 1fr;
-    padding-top: 125px;
 
     > section {
       grid-column: 1 / 25;
-     
     }
 
     > aside {

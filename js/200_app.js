@@ -5,8 +5,10 @@ titleAndValidat(main.id);
 
 loadPFromHash();
 
+sele('main').style.marginTop = `${header.offsetHeight+10}px`;
+
 if (location.hash) shiftWindow();
-window.addEventListener("hashchange", shiftWindow);
+this.addEventListener("hashchange", shiftWindow);
 
 sele(all, 'a:not([href^="#"]):not([href^="http"]):not([href^="javascript:void(0)"])').forEach(a => a.addEventListener('click', e => {
     e.stopPropagation();
