@@ -8,6 +8,7 @@ module.exports = {
         "sourceType": "module"
     },
     "rules": {
+        "linebreak-style":0,
         "no-fallthrough":0,
         "no-undef":0,
         "no-unused-vars":0,
