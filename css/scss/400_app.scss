@@ -1,8 +1,13 @@
-@import "varibals";
-@import "mixins";
+@charset 'utf-8';
+@import 'varibals';
+@import 'mixins';
+@import 'animate-classes';
 @import 'body/header';
 @import 'body/main';
 @import 'body/footer';
+@import 'classes-for-js';
+
+@include kf-pulse;
 
 @font-face {
   font-family: 'Varela Round';
@@ -12,8 +17,9 @@
   unicode-range: U+0590 - 05FF, U+20AA, U+25CC, U+FB1D-FB4F;
 }
 
-:root {
-  font: 16px 'Varela Round', Arial, sans-serif;
+:root,
+body {
+  font: 16px 'Varela Round', Arial, sans-serif !important;
   direction: rtl;
 }
 

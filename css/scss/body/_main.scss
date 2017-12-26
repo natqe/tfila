@@ -30,11 +30,8 @@
   > aside {
     display: block;
     position: fixed;
-    height: 100%;
     width: 150px;
-    overflow-y: scroll;
-    overflow-x: hidden;
-
+    
     > a {
       display: block;
     }

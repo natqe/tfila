@@ -5,7 +5,8 @@ titleAndValidat(main.id);
 
 loadPFromHash();
 
-sele('main').style.marginTop = `${header.offsetHeight+10}px`;
+main.style.marginTop = `${header.offsetHeight+10}px`;
+sele('aside').style.height = `${window.innerHeight-header.offsetHeight - 20}px`;
 
 if (location.hash) shiftWindow();
 this.addEventListener("hashchange", shiftWindow);

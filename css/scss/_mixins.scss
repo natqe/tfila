@@ -1,3 +1,4 @@
+@import 'animate-animations';
 @mixin grid($arg...) {
     @if length($arg) == 4 {
         // $columns, $col_val, $rows, $ro_val
