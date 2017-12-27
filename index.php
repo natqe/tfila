@@ -28,7 +28,7 @@ if (isset($_GET['content'])) {
     <header><?php require_once 'html/body/header.html'?></header>
     <main id=<?=$request_page?>><?php require_once "html/body/main.html"?></main>
     <footer><?php require_once 'html/body/footer.html'?></footer>
-    <script><?php foreach (array_merge(glob('js/function/*.js'), glob('js/*.js')) as $file) require_once $file;?></script>
+    <script><?php foreach (array_merge(glob('js/lib/*.js'), glob('js/function/*.js'), glob('js/*.js')) as $file) require_once $file;?></script>
     <noscript>Your browser does not support JavaScript!</noscript>
 </body>
 </html>

@@ -9,7 +9,6 @@ function loadPFromHash() {
             const dataPara = paras.find(para => para.id === p.id);
             if (dataPara) {
                 p.innerHTML = dataPara.HTML;
-                
             } else {
                 get('p_from', p.id).then(data => {
                     oldParas.push({ id: p.id, HTML: p.innerHTML });

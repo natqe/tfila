@@ -31,14 +31,17 @@ const titleAndValidat = elemId => {
 
     const currentPage = fPages.find(page => page.name === elemId);
     if (currentPage && currentPage.type !== 'וידאו' && currentPage.type !== 'אודיו') {
-        const mainArticle = sele('article');
+
+        const mainArticle = sele(main, 'article');
         new ScrollMagic.Scene({
             triggerElement: mainArticle,
-            duration: '90%',
+            duration: '100%',
             triggerHook: '0.95',
             // reverse: false
-        }).setClassToggle(mainArticle, 'fadeInDown').
-            addTo(SMcontroller);
+        }).
+            // addIndicators().
+            setClassToggle(mainArticle, 'fadeInDown').
+            addTo(SMController);
 
         sele(all, 'a[href^="#"]').forEach(a => a.addEventListener('click', e => {
             if (location.hash && location.hash === a.hash) {
