@@ -105,3 +105,17 @@ headerNavInput.addEventListener('keypress', e => {
 
 
 
+    const controller = new ScrollMagic.Controller();
+    new ScrollMagic.Scene({
+        triggerElement: header,
+        duration: '90%',
+        triggerHook: '0.9'
+    }).
+        setClassToggle('#חסד-אל-כל-היום', 'fadeIn').
+        addIndicators({
+            name: 'fade scene',
+            colorTrigger: 'black',
+            colorStart: 'blue',
+            colorEnd: 'green'
+        }).
+        addTo(controller);

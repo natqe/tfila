@@ -7,7 +7,12 @@
 @import 'body/footer';
 @import 'classes-for-js';
 
-// @include kf-pulse;
+@include kf-fadeIn;
+@include kf-fadeInDown;
+@include kf-fadeInLeft;
+@include kf-fadeInRight;
+@include kf-flip;
+@include kf-slideText;
 
 @font-face {
   font-family: 'Varela Round';
@@ -17,9 +22,8 @@
   unicode-range: U+0590 - 05FF, U+20AA, U+25CC, U+FB1D-FB4F;
 }
 
-:root,
-body {
-  font: 16px 'Varela Round', Arial, sans-serif !important;
+:root {
+  font: 16px 'Varela Round', Arial, sans-serif;
   direction: rtl;
 }
 

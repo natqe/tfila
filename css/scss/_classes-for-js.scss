@@ -1,0 +1,7 @@
+.setOld{
+    @extend %animated, %slideText;
+}
+
+.fadeInDown{
+    @extend %animated, %fadeIn;
+}

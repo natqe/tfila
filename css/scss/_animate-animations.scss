@@ -1431,3 +1431,22 @@
 @mixin iteration($count) {
   animation-iteration-count: $count;
 }
+
+@mixin kf-slideText {
+  @keyframes slideText {
+    from {
+      opacity: 0;
+      transform: translate3d(0, -1px, 0);
+      visibility: visible;
+    }
+
+    70% {
+      transform: translate3d(0, 1px, 0);
+    }
+
+    to {
+      opacity: 1;
+      transform: translate3d(0, 1px, 0);
+    }
+  }
+}

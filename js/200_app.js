@@ -5,8 +5,8 @@ titleAndValidat(main.id);
 
 loadPFromHash();
 
-main.style.marginTop = `${header.offsetHeight+10}px`;
-sele('aside').style.height = `${window.innerHeight-header.offsetHeight - 20}px`;
+main.style.marginTop = `${header.offsetHeight + 10}px`;
+sele('aside').style.height = `${window.innerHeight - header.offsetHeight - 20}px`;
 
 if (location.hash) shiftWindow();
 this.addEventListener("hashchange", shiftWindow);
@@ -23,7 +23,7 @@ sele(all, 'a:not([href^="#"]):not([href^="http"]):not([href^="javascript:void(0)
 this.addEventListener('popstate', () => {
     sele('main').id === idFrom(location.pathname) || changeMain(location.pathname);
     if (!location.hash) {
-        const theP = sele('[setOld]');
+        const theP = sele('.setOld');
         if (theP) setOldP(theP);
     } else {
         sele(all, `article[id]:not([id='${decodeURI(location.hash.replace("#", ""))}'])`).forEach(article => setOldP(sele(article, '[id]')));

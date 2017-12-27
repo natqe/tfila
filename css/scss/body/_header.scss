@@ -1,30 +1,19 @@
 %header {
-  // @extend %animated, %pulse;
-  // @include delay(3s);
-  // @include duration(2s);
-  // @include iteration(3);
-  @include grid(24, 1fr, 5, 1fr);
+  
+  @include grid(col, 24, 1fr);
   position: fixed;
   z-index: 1;
   width: 100%;
   min-height: 100px;
   background: #111f36;
   box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 1);
-
-  > header {
-    grid-column: 1 / 25;
-    grid-row: 1 / 2;
-    display: block;
-    background: #040720;
-    border-bottom: 2px ridge #00020c;
-  }
-
+  
   > nav {
     grid-column: 1 / 25;
-    grid-row: 2 / 6;
     @include grid(col, 24, 1fr);
 
     > h1 {
+      @extend %fadeIn, %animated;
       grid-column: 1 / 6;
       display: block;
       font-weight: bold;
@@ -81,6 +70,7 @@
       margin: auto 0;
 
       &:nth-of-type(1) {
+        
         grid-column: 7 / 17;
 
         > li {

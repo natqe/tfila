@@ -13,7 +13,7 @@
   animation-duration: .75s;
 }
 
-%animated-flip {
+%flip {
   -webkit-backface-visibility: visible;
   backface-visibility: visible;
   animation-name: flip;
@@ -340,4 +340,8 @@
 
 %slideOutUp {
   animation-name: slideOutUp;
+}
+
+%slideText {
+  animation-name: slideText;
 }

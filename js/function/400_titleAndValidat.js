@@ -31,11 +31,20 @@ const titleAndValidat = elemId => {
 
     const currentPage = fPages.find(page => page.name === elemId);
     if (currentPage && currentPage.type !== 'וידאו' && currentPage.type !== 'אודיו') {
+        const mainArticle = sele('article');
+        new ScrollMagic.Scene({
+            triggerElement: mainArticle,
+            duration: '90%',
+            triggerHook: '0.95',
+            // reverse: false
+        }).setClassToggle(mainArticle, 'fadeInDown').
+            addTo(SMcontroller);
+
         sele(all, 'a[href^="#"]').forEach(a => a.addEventListener('click', e => {
             if (location.hash && location.hash === a.hash) {
                 e.preventDefault();
                 history.pushState({}, '', location.pathname);
-                setOldP(sele('[setOld]'));
+                setOldP(sele('.setOld'));
             }
         }));
     }
