@@ -1,12 +1,11 @@
 @charset 'utf-8';
-@import 'varibals';
-@import 'mixins';
-@import 'animate-classes';
-@import 'body/header';
-@import 'body/main';
-@import 'body/footer';
-@import 'classes-for-js';
-
+@import 'varibals', 
+              'mixins', 
+              'animate-classes', 
+              'body/header',
+              'body/main', 
+              'body/footer', 
+              'classes-for-js';
 @include kf-fadeIn;
 @include kf-fadeInDown;
 @include kf-fadeInLeft;
