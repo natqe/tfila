@@ -3,8 +3,8 @@
         <a href=/ >
             <figure>
                 <picture>
-                    <source media=(max-width: 768px) srcset=img/logo.png>
-                    <source media=(max-width: 480px ) srcset=img/logo.png>
+                    <source width=75px height=80px media=(max-width: 768px) srcset=img/logo-2.png>
+                    <source  width=64px height=70px media=(max-width: 480px ) srcset=img/logo-2.png>
                     <img width=84px height=90px src=img/logo-2.png alt="" title="ביקור בדף הראשי">
                 </picture>
                 <figcaption></figcaption>
@@ -12,11 +12,30 @@
         </a>
     </h1>
     <ul>
-<?php 
+<?php
 foreach ($fetch_pages as $page) {
 ?>
         <li>
             <a href=<?=$page['name']?>><?=$page['name']?></a>
+<?php 
+    if (in_array($page['name'], array_column($fetch_sub_menus, 'below'))) {
+?>
+            <ul>
+<?php 
+        foreach ($fetch_sub_menus as $array) {
+            if ($array['below'] === $page['name']) {
+?>
+                <li>
+                    <a href=<?=$array['page']?>><?=$array['page']?></a>
+                </li>
+<?php 
+            }
+        }
+?>
+            </ul>
+<?php  
+    }
+?>
         </li>
 <?php 
 }

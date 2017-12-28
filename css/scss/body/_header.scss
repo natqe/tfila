@@ -5,7 +5,8 @@
   z-index: 1;
   width: 100%;
   min-height: 100px;
-  background: #111f36;
+  background: $bgc;
+  // background: #111f36;
   box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 1);
   
   > nav {
@@ -95,8 +96,8 @@
               text-decoration: none;
 
               &:hover {
-                color: white;
-                background: #121222;
+                color: invert(complement($color)) !important;
+                background: lighten($bgc, 6);
               }
 
               &:active {
@@ -104,8 +105,8 @@
             }
 
             &:link:hover {
-              color: white;
-              background: #181525;
+              color: invert(complement($color)) !important;
+              background: lighten($bgc, 6);
             }
 
             &:link:active {

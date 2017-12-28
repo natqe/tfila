@@ -14,6 +14,8 @@ if (!isset($_SESSION['user'])) {
     $pages[] = $sign_up = 'הרשמה';
 }
 
+$fetch_sub_menus = $pdo->query('SELECT * FROM sub_menu')->fetchAll();
+
 $request_page = ($_GET['content'] ?? ltrim(urldecode($_SERVER['REQUEST_URI']), '/')) ?: $home;
 if (!in_array($request_page, $pages)) $request_page = $not_found;
 

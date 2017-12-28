@@ -24,6 +24,8 @@
 :root {
   font: 16px 'Varela Round', Arial, sans-serif;
   direction: rtl;
+  background-color: $bgc;
+  color: invert($bgc);
 
   a {
     text-decoration: none;
