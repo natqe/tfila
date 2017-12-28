@@ -77,8 +77,8 @@
         > li {
           display: list-item;
           line-height: 90px;
+          position: relative;
           text-align: center;
-
           > a {
             display: block;
             border-radius: 10px;
@@ -113,6 +113,59 @@
               color: internal value;
             }
           }
+          >ul{
+            >li{
+              display: none;
+            }
+          }
+          &:hover{
+            >ul{
+              >li{
+                margin-top: 1px;
+                height: 100%;
+                width: 100%;
+                background-color: $bgc;
+                display: block;
+                position: absolute;
+                left: 0;
+                > a {
+                  display: block;
+                  border-radius: 10px;
+                  -webkit-transition: 0.3s ease-in;
+                  transition: 0.3s ease-in;
+      
+      
+                  &:link {
+                    color: #cccccc;
+                    text-decoration: none;
+                  }
+      
+                  &:visited {
+                    color: #cccccc;
+                    text-decoration: none;
+      
+                    &:hover {
+                      color: invert(complement($color)) !important;
+                      background: lighten($bgc, 6);
+                    }
+      
+                    &:active {
+                    }
+                  }
+      
+                  &:link:hover {
+                    color: invert(complement($color)) !important;
+                    background: lighten($bgc, 6);
+                  }
+      
+                  &:link:active {
+                    color: internal value;
+                  }
+                }
+              }
+            }
+          }
+
         }
       }
 
