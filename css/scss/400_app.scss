@@ -37,7 +37,7 @@
 }
 
 body {
-  @include grid(24, 1fr, minmax(380px, auto) minmax(100px, auto));
+  @include grid(24, 1fr, minmax(525px, auto) minmax(100px, auto));
 
   > header {
     @extend %header;

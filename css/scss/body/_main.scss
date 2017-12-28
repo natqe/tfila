@@ -53,6 +53,25 @@
         @extend %fadeIn, %animated;
       }
     }
+    >form{
+      text-align: center;
+      >fieldset{
+        >legend{
+          margin-bottom: 20px;
+        }
+        >label{
+          >span{
+            display: block;
+            margin-top: 10px;
+            line-height: 20px;
+          }
+          >input{
+            display: block;
+            margin: 5px auto;
+          }
+        }
+      }
+    }
   }
 
   > aside {
@@ -70,6 +89,4 @@
     }
   }
 
-  &[id='בית'] {
-  }
 }
