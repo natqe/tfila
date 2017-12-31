@@ -8,6 +8,8 @@ loadPFromHash();
 main.style.marginTop = `${header.offsetHeight + 10}px`;
 sele('aside').style.height = `${window.innerHeight - header.offsetHeight - 20}px`;
 
+headerNavH1Div.addEventListener('click', toggleNav);
+
 if (location.hash) shiftWindow();
 this.addEventListener("hashchange", shiftWindow);
 
@@ -17,6 +19,9 @@ sele(all, 'a:not([href^="#"]):not([href^="http"]):not([href^="javascript:void(0)
     if (a.pathname !== location.pathname) {
         changeMain(a.pathname);
         history.pushState({}, '', a.pathname);
+    }
+    if (location.pathname !== '/' || headerNav.classList.contains('showingLi')) {
+        toggleNav();
     }
 }));
 
@@ -40,4 +45,6 @@ headerNavContact.addEventListener('click', e => {
 setTimeout(() => pages.forEach(page =>
     contents.find(content => content.id === page) || get('content', page).then(data => contents.push({ id: page, HTML: data }))
 ), 5000);
+
+
 
