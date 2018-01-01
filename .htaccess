@@ -20,7 +20,7 @@ RewriteBase /
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule . http://localhost/
+RewriteRule . /
 
 #To avoid from multiloading of files
 <IfModule mod_expires.c>

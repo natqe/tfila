@@ -37,6 +37,7 @@
           &.change {
             > div {
               background: complement(mix($bgc, invert($bgc)));
+
               &:nth-of-type(1) {
                 -webkit-transform: rotate(-45deg) translate(-9px, 6px);
                 transform: rotate(-45deg) translate(-9px, 6px);
@@ -63,7 +64,8 @@
 
       > ul {
         display: block;
-        
+        font-size: 1.5rem;
+
         > li {
           display: list-item;
           line-height: 50px !important;
@@ -132,9 +134,10 @@
         //   width: 100%;
         // }
       }
-      &.showingLi{
-        >ul{
-          li{
+
+      &.showingLi {
+        > ul {
+          li {
             max-height: 20em;
             visibility: visible;
           }
