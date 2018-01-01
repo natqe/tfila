@@ -56,7 +56,7 @@
 
           &:hover {
             > div {
-              background: complement(mix($bgc, invert($bgc)));
+              background: $bgcLight;
             }
           }
         }
@@ -74,6 +74,9 @@
           transition: max-height 1s, visibility 0.1s;
           visibility: hidden;
           max-height: 0;
+          >a{
+            border-radius: 0;
+          }
         }
 
         &:nth-of-type(1) {
@@ -85,59 +88,21 @@
           grid-column: 1 / 25;
           grid-row: 3 / 4;
 
-          li {
-            display: list-item;
-            line-height: 50px;
-            position: relative;
-            text-align: center;
-
-            > a {
-              display: block;
-              border-radius: 10px;
-              -webkit-transition: 0.3s ease-in;
-              transition: 0.3s ease-in;
-
-              &:link {
-                color: #cccccc;
-                text-decoration: none;
-              }
-
-              &:visited {
-                color: #cccccc;
-                text-decoration: none;
-
-                &:hover {
-                  color: invert(complement($color)) !important;
-                  background: lighten($bgc, 6);
-                }
-
-                &:active {
-                }
-              }
-
-              &:link:hover {
-                color: invert(complement($color)) !important;
-                background: lighten($bgc, 6);
-              }
-
-              &:link:active {
-                color: internal value;
-              }
-            }
-
+          
+          >li {
             &:nth-child(2) {
               display: none;
             }
+            > a:hover{
+              background: $bgcLight;
+            }
           }
         }
-        // >li{
-        //   width: 100%;
-        // }
       }
 
       &.showingLi {
         > ul {
-          li {
+          >li {
             max-height: 20em;
             visibility: visible;
           }

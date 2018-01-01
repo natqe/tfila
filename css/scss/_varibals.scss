@@ -1,4 +1,11 @@
 $main_color: #111f36;
-$secend_color: rgba(73, 61, 33, 1);
-$color: white;
+$logo: rgba(73, 61, 33, 1);
 $bgc: #141e28;
+// $bgc: lighten(#141e28, 25);
+$color: invert($bgc);
+$changeAmount: 10%;
+$bgcDark: darken($bgc, $changeAmount);
+$bgcLDark: darken($bgc, 3%);
+$bgcLight: lighten($bgc, $changeAmount);
+$bgcSat: saturate( $bgc, $changeAmount);
+$bgcDesat: desaturate( $bgc, $changeAmount);

@@ -20,9 +20,7 @@ sele(all, 'a:not([href^="#"]):not([href^="http"]):not([href^="javascript:void(0)
         changeMain(a.pathname);
         history.pushState({}, '', a.pathname);
     }
-    if (location.pathname !== '/' || headerNav.classList.contains('showingLi')) {
-        toggleNav();
-    }
+    if (a.pathname !== '/' || headerNav.classList.contains('showingLi')) toggleNav();
 }));
 
 this.addEventListener('popstate', () => {

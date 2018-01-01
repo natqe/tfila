@@ -1,16 +1,14 @@
 %footer{
-  grid-column: 1 / 25;
-  grid-row: 2 / 3;
   display: block;
   text-align: center;
-  background-color: #0f161e;
+  background: $bgcLDark;
   @include grid(ro, 1, 1fr);
 
   > small {
     grid-row: 1/2;
     margin: auto;
-    font-size: smaller;
-    color: invert(#0f161e);
+    font-size: 0.8rem;
+    color: invert($bgcLDark);
 
     > bdi {
       display: block;

@@ -2,10 +2,10 @@
 @import 'varibals', 
               'mixins', 
               'animate-classes', 
+              'classes-for-js', 
               'body/header',
               'body/main', 
-              'body/footer', 
-              'classes-for-js';
+              'body/footer';
 @include kf-fadeIn;
 @include kf-fadeInDown;
 @include kf-fadeInLeft;
@@ -22,17 +22,15 @@
 }
 
 :root {
-  font: 16px 'Varela Round', Arial, sans-serif;
+  font: 17.5px 'Varela Round', Arial, sans-serif;
   direction: rtl;
   background-color: $bgc;
-  color: invert($bgc);
+  // background: url(img/bg.jpg) fixed;
+  color: $color;
 
   a {
     text-decoration: none;
-    color: inherit;
-    &:hover {
-      text-decoration: underline;
-    }
+    color: $color;
   }
 }
 
@@ -44,10 +42,12 @@ body {
   }
 
   > main {
+    grid-column: 2 / 24;
     @extend %main;
   }
 
   > footer {
+    grid-column: 1 / 25;
     @extend %footer;
   }
 

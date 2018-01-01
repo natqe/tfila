@@ -14,13 +14,13 @@ if (!in_array($request_page, $pages_from_db)) {
     </article>
 <?php
     $fetch_articles = $pdo->query(
-        "SELECT id, title, SUBSTRING(body, 1, 150) as sub_body FROM articles WHERE page='$request_page' ORDER BY created_at DESC"
+        "SELECT id, title, SUBSTRING(body, 1, 175) as sub_body FROM articles WHERE page='$request_page' ORDER BY created_at DESC"
     )->fetchAll();
     foreach ($fetch_articles as $article) {
 ?>
     <article id=<?=str_replace(' ', '-', $article['title'])?>>
             <h2><a href=#<?=str_replace(' ', '-', $article['title'])?>><?=$article['title']?></a></h2>
-            <p id=<?=$article['id']?>><?=strip_tags(mb_substr($article['sub_body'], 0, mt_rand(100, strlen($article['sub_body'])-1)))?>...</p>
+            <p id=<?=$article['id']?>><?=strip_tags(mb_substr($article['sub_body'], 0, mt_rand(125, strlen($article['sub_body'])-1)))?>...</p>
     </article>
 <?php
     }
@@ -33,6 +33,8 @@ if (!in_array($request_page, $pages_from_db)) {
     <a href=#<?=str_replace(' ', '-', $article['title'])?>><?=$article['title']?></a>
 <?php
     }
+?>  
+</aside>
+<?php
 }
 ?>
-</aside>

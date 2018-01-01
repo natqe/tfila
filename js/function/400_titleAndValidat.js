@@ -1,6 +1,8 @@
-const titleAndValidat = elemId => {
+
+function titleAndValidat(elemId) {
 
     document.title = elemId !== '<?=$home?>' ? `${title} | ${elemId}` : title;
+    document.documentElement.scrollTop = 0;
 
     '<?php if(!isset($_SESSION["user"])):?>';
 
@@ -36,11 +38,8 @@ const titleAndValidat = elemId => {
         new ScrollMagic.Scene({
             triggerElement: mainArticle,
             duration: '100%',
-            triggerHook: '0.95',
-            // reverse: false
-        }).
-            // addIndicators().
-            setClassToggle(mainArticle, 'fadeInDown').
+            triggerHook: '0.95'
+        }).setClassToggle(mainArticle, 'fadeInDown').
             addTo(SMController);
 
         sele(all, 'a[href^="#"]').forEach(a => a.addEventListener('click', e => {
@@ -52,4 +51,4 @@ const titleAndValidat = elemId => {
         }));
     }
 
-};
+}
