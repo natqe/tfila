@@ -39,7 +39,7 @@ function titleAndValidat(elemId) {
             triggerElement: mainArticle,
             duration: '100%',
             triggerHook: '0.95'
-        }).setClassToggle(mainArticle, 'fadeInDown').
+        }).setClassToggle(mainArticle, 'fadeIn').
             addTo(SMController);
 
         sele(all, 'a[href^="#"]').forEach(a => a.addEventListener('click', e => {

@@ -24,6 +24,4 @@ function loadPFromHash() {
 
     }
 
-    if (headerNav.classList.contains('showingLi')) toggleNav();
-
 }

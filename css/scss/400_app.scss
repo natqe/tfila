@@ -7,10 +7,6 @@
               'body/main', 
               'body/footer';
 @include kf-fadeIn;
-@include kf-fadeInDown;
-@include kf-fadeInLeft;
-@include kf-fadeInRight;
-@include kf-flip;
 @include kf-slideText;
 
 @font-face {
@@ -27,6 +23,8 @@ html {
   background-color: $bgc;
   // background: url(img/bg.jpg) fixed;
   color: $color;
+  position: relative;
+  min-height: 100%;
 
   a {
     text-decoration: none;
@@ -35,7 +33,7 @@ html {
 }
 
 body {
-  @include grid(24, 1fr, minmax(650px, auto) minmax(100px, auto));
+  @include grid(24, 1fr, minmax(450px, auto) minmax(100px, auto));
 
   > header {
     @extend %header;
