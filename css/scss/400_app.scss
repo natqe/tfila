@@ -21,7 +21,7 @@
   unicode-range: U+0590 - 05FF, U+20AA, U+25CC, U+FB1D-FB4F;
 }
 
-:root {
+html {
   font: 17.5px 'Varela Round', Arial, sans-serif;
   direction: rtl;
   background-color: $bgc;
@@ -60,7 +60,7 @@ body {
 @media (max-width: 768px) {
   @import "768px/body";
 
-  :root {
+  html {
     font-size: 14px;
   }
 
@@ -70,7 +70,7 @@ body {
 }
 
 @media (max-width: 480px) {
-  :root {
-    font-size: 12px;
+  html {
+    font-size: 10.5px;
   }
 }
