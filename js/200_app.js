@@ -3,6 +3,8 @@ sele(all, 'time', footerSmall).forEach(time => time.textContent = new Date().get
 
 titleAndValidat(main.id);
 
+getParas();
+
 loadPFromHash();
 
 main.style.marginTop = `${header.offsetHeight + 10}px`;
