@@ -12,7 +12,6 @@ $bgl: mix(nth($glist, 1), nth($blist, 1)), #1f3f42, #271f3e, #353429, #391f36, #
 
 $logo: $gold;
 $bgc: mix(nth($blist, 2), nth($bgl, 1), 25%);
-// $bgc: mix(darken(complement($logo), 50%), $bgc, 25%);
 $color: invert(mix($logo, $bgc, 62.5%));
 $changeAmount: 10%;
 $bgcDark: darken($bgc, $changeAmount);

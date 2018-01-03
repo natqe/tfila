@@ -21,9 +21,12 @@
       }
     }
 
+    li, a {
+      border-radius: 10px;
+    }
+
     ul li > a {
       display: block;
-      border-radius: 10px;
       transition: 0.3s ease-in;
 
       &:hover {
@@ -44,19 +47,16 @@
 
         > ul {
           display: none;
-
-          > li {
-            display: block;
-            position: relative;
-            width: 100%;
-            margin-top: 1px;
-            background: $bgc;
-          }
         }
 
         &:hover > ul {
-          display: block;
+          display: grid;
+          grid-gap: 1px;
           @extend %animated, %flipInX;
+
+          > li {
+            background: $bgc;
+          }
         }
       }
 

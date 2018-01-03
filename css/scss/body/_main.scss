@@ -11,14 +11,16 @@
       display: block;
       margin-bottom: 40px;
 
-      > h1, h2 {
+      > h1,
+      h2 {
         display: block;
         font-size: 1.5rem;
         line-height: 40px;
 
-        >a {
+        > a {
           cursor: text;
-          &:hover{
+
+          &:hover {
             color: darken(complement($color), $changeAmount);
           }
         }
@@ -31,7 +33,7 @@
         }
       }
 
-      >h1{
+      > h1 {
         font-weight: 600;
       }
 
