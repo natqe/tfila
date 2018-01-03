@@ -1,12 +1,13 @@
 @charset 'utf-8';
-@import 'varibals', 
-              'mixins', 
-              'animate-classes', 
+@import 'var', 
+              'mixin', 
+              'animate/classes', 
               'classes-for-js', 
               'body/header',
               'body/main', 
               'body/footer';
 @include kf-fadeIn;
+@include kf-flipInX;
 @include kf-slideText;
 
 @font-face {
@@ -40,7 +41,7 @@ body {
   }
 
   > main {
-    grid-column: 2 / 24;
+    grid-column: 1 / 25;
     @extend %main;
   }
 

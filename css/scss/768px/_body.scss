@@ -1,5 +1,6 @@
 %body {
   > header {
+    max-height: none;
     > nav {
       grid-template-rows: 1fr fit-content(100%) fit-content(100%);
 
@@ -74,7 +75,8 @@
           transition: max-height 1s, visibility 0.1s;
           visibility: hidden;
           max-height: 0;
-          >a{
+
+          > a {
             border-radius: 0;
           }
         }
@@ -88,25 +90,21 @@
           grid-column: 1 / 25;
           grid-row: 3 / 4;
 
-          
-          >li {
+          > li {
             &:nth-child(2) {
               display: none;
             }
-            > a:hover{
+
+            > a:hover {
               background: $bgcLight;
             }
           }
         }
       }
 
-      &.showingLi {
-        > ul {
-          >li {
-            max-height: 20em;
-            visibility: visible;
-          }
-        }
+      &.showingLi > ul > li {
+        max-height: 20em;
+        visibility: visible;
       }
     }
   }

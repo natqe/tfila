@@ -15,7 +15,7 @@ function loadPFromHash() {
                     paras.push({ id: p.id, HTML: data });
                     p.innerHTML = data;
                     p.scrollIntoView();
-                    scrollBy(0, -(header.offsetHeight+70));
+                    scrollBy(0, -(header.offsetHeight + 70));
                 }).catch(err =>
                     console.log(err));
             }

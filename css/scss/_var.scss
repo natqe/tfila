@@ -1,0 +1,23 @@
+$blue0: #111f36;
+$gold0: #493d21;
+$g0list: #212949, #214941, #312149, #394921, #452149, #492139, #493321, #494721, #635940;
+
+$blue: #141e28;
+$blist: #14281e, #142b42, #191428, #231428, #281419, #281714, #281c14, #282114, #282614;
+
+$gold: #534429;
+$glist: #293b53, #295341, #352953, #475329, #4a2953, #532947, #533a29, #534f29, #6d614c;
+
+$bgl: mix(nth($glist, 1), nth($blist, 1)), #1f3f42, #271f3e, #353429, #391f36, #3e202e, #3e2b1f, #3e381f, #4b4430;//nth1 = #1f3239
+
+$logo: $gold;
+$bgc: mix(nth($blist, 2), nth($bgl, 1), 25%);
+// $bgc: mix(darken(complement($logo), 50%), $bgc, 25%);
+$color: invert(mix($logo, $bgc, 62.5%));
+$changeAmount: 10%;
+$bgcDark: darken($bgc, $changeAmount);
+$bgcLDark: darken($bgc, 3%);
+$bgcLight: lighten($bgc, $changeAmount);
+
+$bgcSat: saturate( $bgc, $changeAmount);
+$bgcDesat: desaturate( $bgc, $changeAmount);

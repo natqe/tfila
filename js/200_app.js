@@ -46,5 +46,3 @@ setTimeout(() => pages.forEach(page =>
     contents.find(content => content.id === page) || get('content', page).then(data => contents.push({ id: page, HTML: data }))
 ), 5000);
 
-
-
