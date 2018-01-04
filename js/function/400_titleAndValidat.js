@@ -7,12 +7,11 @@ function titleAndValidat(elemId) {
     '<?php if(!isset($_SESSION["user"])):?>';
 
     if (elemId === '<?=$sign_up?>') {
-        const signup = sele("[id='<?=$sign_up?>']");
-        const [signupPass, signupPassConfirm] = sele(signup, 'input[name=su_pass]', 'input[type=password]:not([name])');
-        [signupPass.onchange, signupPassConfirm.onkeyup] =
-            [() => signupPass.value !== signupPassConfirm.value ?
+        const [signupPass, signupPassConfirm] = sele(sele("[id='<?=$sign_up?>']"), 'input[name=su_pass]', 'input[type=password]:not([name])');
+        signupPass.onchange = signupPassConfirm.onkeyup =
+            () => signupPass.value !== signupPassConfirm.value ?
                 signupPassConfirm.setCustomValidity('סיסמא אינה תואמת') :
-                signupPassConfirm.setCustomValidity('')];
+                signupPassConfirm.setCustomValidity('');
     }
 
     switch (elemId) {

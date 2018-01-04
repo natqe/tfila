@@ -1,6 +1,7 @@
 %body {
   > header {
     max-height: none;
+
     > nav {
       grid-template-rows: 1fr fit-content(100%) fit-content(100%);
 
@@ -12,7 +13,7 @@
 
         > a {
           grid-column: 1 / 2;
-
+          margin-right: .3rem;
           > figure {
             > picture {
               grid-row: 1 / 7;
@@ -25,40 +26,34 @@
           display: inline-block;
           cursor: pointer;
           align-self: center;
-          padding-left: 30%;
+          margin-left: 1.1rem;
 
           > div {
             width: 35px;
             height: 5px;
-            background: invert($bgc);
             margin: 6px 0;
+            background: $color;
             transition: 0.4s;
           }
 
-          &.change {
-            > div {
-              background: complement(mix($bgc, invert($bgc)));
+          &.change > div {
+            background: $bgcLight;
 
-              &:nth-of-type(1) {
-                -webkit-transform: rotate(-45deg) translate(-9px, 6px);
-                transform: rotate(-45deg) translate(-9px, 6px);
-              }
+            &:nth-of-type(1) {
+              transform: rotate(-45deg) translate(-9px, 6px);
+            }
 
-              &:nth-of-type(2) {
-                opacity: 0;
-              }
+            &:nth-of-type(2) {
+              opacity: 0;
+            }
 
-              &:nth-of-type(3) {
-                -webkit-transform: rotate(45deg) translate(-8px, -8px);
-                transform: rotate(45deg) translate(-8px, -8px);
-              }
+            &:nth-of-type(3) {
+              transform: rotate(45deg) translate(-8px, -8px);
             }
           }
 
-          &:hover {
-            > div {
-              background: $bgcLight;
-            }
+          &:hover > div {
+            background: $bgcLight;
           }
         }
       }
@@ -69,11 +64,11 @@
 
         > li {
           display: list-item;
-          line-height: 50px !important;
+          visibility: hidden;
+          line-height: 4rem;
           position: relative;
           text-align: center;
           transition: max-height 1s, visibility 0.1s;
-          visibility: hidden;
           max-height: 0;
 
           > a {
@@ -91,19 +86,20 @@
           grid-row: 3 / 4;
 
           > li {
-            &:nth-child(2) {
+            &:nth-of-type(2) {
               display: none;
             }
 
             > a:hover {
               background: $bgcLight;
+              color: $bgcDark;
             }
           }
         }
       }
 
       &.showingLi > ul > li {
-        max-height: 20em;
+        max-height: 20rem;
         visibility: visible;
       }
     }
