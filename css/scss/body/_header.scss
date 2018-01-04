@@ -19,7 +19,8 @@
       }
     }
 
-    li, a {
+    li,
+    li > a {
       border-radius: 10px;
     }
 
@@ -39,7 +40,8 @@
 
       > li {
         display: list-item;
-        line-height: 90px;
+        line-height: 3.3rem;
+        margin-top: 1rem;
         position: relative;
         text-align: center;
 
@@ -55,11 +57,23 @@
           > li {
             background: $bgc;
           }
+          @media (min-width: 768px) {
+            &::before{
+              content: '^';
+              margin: -0.8rem;
+              padding-top: 0.3rem;
+            }
+          }
         }
       }
 
       &:nth-of-type(1) {
         grid-column: 22 / 70;
+        @media (min-width: 768px){
+          a {
+            border: solid $bgc + 3;
+          }
+        }
       }
 
       &:nth-of-type(2) {

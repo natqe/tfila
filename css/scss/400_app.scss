@@ -48,6 +48,7 @@ body {
   > footer {
     grid-column: 1 / 25;
     @extend %footer;
+    
   }
 
   > noscript {
@@ -57,14 +58,21 @@ body {
 }
 
 @media (max-width: 768px) {
-  @import "768px/body";
+  @import "768px/header768px";
+  @import "768px/main768px";
 
   html {
     font-size: 14px;
   }
 
   body {
-    @extend %body;
+    > header {
+      @extend %header768px;
+    }
+
+    > main {
+      @extend %main768px;
+    }
   }
 }
 
