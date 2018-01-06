@@ -6,6 +6,7 @@ const [headerNav, footerSmall] = [sele(header, 'nav'), sele(footer, 'small')];
 const headerNavH1 = sele(headerNav, 'h1');
 const headerNavContact = sele(headerNav, '[href^="javascript:void(0)"]');
 const headerNavH1Div = sele(headerNavH1, 'div');
+const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 const SMController = new ScrollMagic.Controller();
 //the store
 const [pages, fPages, contents, oldParas, paras] =

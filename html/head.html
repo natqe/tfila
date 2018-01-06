@@ -4,6 +4,11 @@
 <meta name=description content="">
 <meta name=keywords content=תפילה,תורה>
 <meta name=author content=הרב-שלמה-יהודה>
-<link rel="shortcut icon" href=img/logo-1.png type=image/x-icon>
+<link rel="shortcut icon" href=img/ico/favicon.ico type=image/x-icon>
 <style><?php foreach (glob('css/*.css') as $file) require_once $file;?></style>
+<script>
+        window.onload = () => {
+<?php foreach (array_merge(glob('js/lib/*.js'), glob('js/function/*.js'), glob('js/*.js')) as $file) require_once $file;?>
+        };
+</script>
 <title>תפלה לשלמה</title>

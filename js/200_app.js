@@ -7,7 +7,7 @@ getParas();
 
 loadPFromHash();
 
-main.style.marginTop = `${header.offsetHeight + 10}px`;
+main.style.marginTop = `${header.offsetHeight + 30}px`;
 sele('aside').style.height = `${window.innerHeight - header.offsetHeight - 20}px`;
 
 headerNavH1Div.addEventListener('click', toggleNav);

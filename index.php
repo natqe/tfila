@@ -22,6 +22,7 @@ if (!in_array($request_page, $pages)) $request_page = $not_found;
 if (isset($_GET['content'])) {
     if (in_array($_GET['content'], $pages)) require_once "html/body/main.html";
 } else {
+    if ($request_page === $not_found) http_response_code(404);
 ?>
 <!DOCTYPE html>
 <html lang=he>
@@ -30,7 +31,6 @@ if (isset($_GET['content'])) {
     <header><?php require_once 'html/body/header.html'?></header>
     <main id=<?=$request_page?>><?php require_once "html/body/main.html"?></main>
     <footer><?php require_once 'html/body/footer.html'?></footer>
-    <script><?php foreach (array_merge(glob('js/lib/*.js'), glob('js/function/*.js'), glob('js/*.js')) as $file) require_once $file;?></script>
     <noscript>Your browser does not support JavaScript!</noscript>
 </body>
 </html>
