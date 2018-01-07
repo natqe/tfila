@@ -1,5 +1,5 @@
 <nav>
-    <h1>
+    <section>
         <a href=/ >
             <figure>
                 <picture>
@@ -10,12 +10,13 @@
                 <figcaption></figcaption>
             </figure>
         </a>
+        <abbr title="חפש באתר"></abbr>
         <div>
             <div></div>
             <div></div>
             <div></div>
         </div>
-    </h1>
+    </section>
     <ul>
 <?php
 foreach ($fetch_pages as $page) {
@@ -64,6 +65,6 @@ if(!isset($_SESSION['user'])){
 <?php
  }
  ?>
- <abbr title="חפש באתר">search</abbr>
-    <input type=search placeholder="התחל להקליד ולחץ אנטר בכדי לחפש באתר">
+<abbr title="חפש באתר">search</abbr>
+<input type=search placeholder="התחל להקליד ולחץ אנטר בכדי לחפש באתר">
 </nav>

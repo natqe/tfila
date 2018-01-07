@@ -4,7 +4,7 @@
   > nav {
     grid-template-rows: 1fr fit-content(100%) fit-content(100%);
 
-    > h1 {
+    > section {
       grid-column: 1/100;
       grid-row: 1 / 2;
       display: grid;
@@ -103,6 +103,15 @@
     }
     >abbr{
       display: none;
+    }
+    &.searchMode{
+      >section{
+        visibility: hidden;
+      }
+      >input{
+        grid-column: 1/100;
+        margin: 1rem;
+      }
     }
   }
 }

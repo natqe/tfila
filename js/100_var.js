@@ -2,10 +2,10 @@
 const all = '*';
 const title = document.title;
 const [header, main, footer] = sele('header', 'main', 'footer');
-const [headerNav, footerSmall] = [sele(header, 'nav'), sele(footer, 'small')];
-const headerNavH1 = sele(headerNav, 'h1');
-const headerNavContact = sele(headerNav, '[href^="javascript:void(0)"]');
-const headerNavH1Div = sele(headerNavH1, 'div');
+const headerNav = sele(header, 'nav');
+const footerSmall = sele(footer, 'small');
+const [headerNavSection, headerNavContact, headerNavInputSearch] = sele(headerNav, 'section', '[href^="javascript:void(0)"]', 'input[type="search"]');
+const headerNavSectionDiv = sele(headerNavSection, 'div');
 const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 const SMController = new ScrollMagic.Controller();
 //the store
