@@ -32,7 +32,7 @@ if (!in_array($request_page, $pages_from_db) && in_array($request_page, $pages))
 ?>
     <article id=<?=str_replace(' ', '-', $article['title'])?> data-type=<?=$article['type']?>>
             <h2><a href=#<?=str_replace(' ', '-', $article['title'])?> data-type=<?=$article['type']?>><?=$article['title']?></a></h2>
-            <p id=<?=$article['id']?>><?=strip_tags($article['sub_body'])?><?=$article['type'] === 'טקסט' ? '...' : ''?></p>
+            <p id=<?=$article['id']?>><?=$article['type'] === 'טקסט' ? strip_tags($article['sub_body']).'...' : $article['sub_body']?></p>
     </article>
 <?php
     }
