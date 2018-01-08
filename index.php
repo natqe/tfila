@@ -1,5 +1,7 @@
 <?php foreach (glob('php/*.php') as $file) require_once $file;
 
+// error_reporting(0);
+
 // echo var_export(); die; //for tests
 
 if (isset($_GET['p_from'])) die(require_once 'html/body/main/section/article/p.html');
@@ -14,12 +16,19 @@ if (!isset($_SESSION['user'])) {
     $pages[] = $sign_up = 'הרשמה';
 }
 
+$search = 'חיפוש-';
+
 $fetch_sub_menus = $pdo->query('SELECT * FROM sub_menu')->fetchAll();
 
-$request_page = ($_GET['content'] ?? ltrim(urldecode($_SERVER['REQUEST_URI']), '/')) ?: $home;
-if (!in_array($request_page, $pages)) $request_page = $not_found;
+$request_page = ($_GET['content'] ?? $_GET['search'] ?? ltrim(urldecode($_SERVER['REQUEST_URI']), '/')) ?: $home;
+$search_from_url = (strpos($request_page, $search) === 0 && !isset($_GET['search'])) ? true : false;
+$strSearch = str_replace('-', ' ', $_GET['search'] ?? substr($request_page, strlen($search), strlen($request_page)));
+if(!strlen($strSearch)) $strSearch = false;
+if (!in_array($request_page, $pages) && !$search_from_url && !isset($_GET['search'])) $request_page = $not_found;
 
-if (isset($_GET['content'])) {
+if(isset($_GET['search'])){
+    require_once "html/body/main.html";
+}elseif (isset($_GET['content'])) {
     if (in_array($_GET['content'], $pages)) require_once "html/body/main.html";
 } else {
     if ($request_page === $not_found) http_response_code(404);
@@ -36,5 +45,4 @@ if (isset($_GET['content'])) {
 </html>
 <?php
 }
-// const TYPES = ['תוכן', 'אודיו', 'וידאו', 'פקט'];
 ?>

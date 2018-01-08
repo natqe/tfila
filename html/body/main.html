@@ -1,26 +1,38 @@
 <?php
-if($request_page !== $sign_in && $request_page !== $sign_up){
+if($request_page !== $sign_in && $request_page !== $sign_up && !$strSearch){
     $fetch_preface = $pdo->query("SELECT title, body FROM prefaces WHERE page='$request_page'")->fetch();
 }
-if (!in_array($request_page, $pages_from_db)) {
+if (!in_array($request_page, $pages_from_db) && in_array($request_page, $pages)) {
     require_once "html/body/main/$request_page.html";
 } else {
-    foreach ($fetch_pages as $page) if ($page['name'] === $request_page) $type = $page['type'];
 ?>
 <section>
-    <article>
-            <h1><?=$fetch_preface['title'] ?? ''?></h1>
+    <article id=preface>
+            <h1>
+                <?=$fetch_preface['title'] ?? ''?>
+                <?=$strSearch ? 'תוצאות חיפוש עבור: "'.$strSearch.'"' : ''?>
+            </h1>
             <p><?=$fetch_preface['body'] ?? ''?></p>
     </article>
 <?php
-    $fetch_articles = $pdo->query(
-        "SELECT id, title, SUBSTRING(body, 1, 175) as sub_body FROM articles WHERE page='$request_page' ORDER BY created_at DESC"
-    )->fetchAll();
+    if (!$strSearch) {
+        $fetch_articles = $pdo->query(
+            "SELECT id, type, title, IF(type='טקסט', SUBSTRING(body, 1, ROUND(RAND()*(175-125))+125), body) AS sub_body FROM articles
+            WHERE page='$request_page' ORDER BY created_at DESC"
+        )->fetchAll();
+    } else {
+        $prepare_search = $pdo->prepare(
+            "SELECT id, type, title, IF(type='טקסט', SUBSTRING(body, 1, ROUND(RAND()*(175-125))+125), body) AS sub_body FROM articles
+            WHERE body LIKE ? OR title LIKE ? ORDER BY created_at DESC"
+        );
+        $prepare_search->execute(["%$strSearch%", "%$strSearch%"]);
+        $fetch_articles = $prepare_search->fetchAll();
+    }
     foreach ($fetch_articles as $article) {
 ?>
-    <article id=<?=str_replace(' ', '-', $article['title'])?>>
-            <h2><a href=#<?=str_replace(' ', '-', $article['title'])?>><?=$article['title']?></a></h2>
-            <p id=<?=$article['id']?>><?=strip_tags(mb_substr($article['sub_body'], 0, mt_rand(125, strlen($article['sub_body'])-1)))?>...</p>
+    <article id=<?=str_replace(' ', '-', $article['title'])?> data-type=<?=$article['type']?>>
+            <h2><a href=#<?=str_replace(' ', '-', $article['title'])?> data-type=<?=$article['type']?>><?=$article['title']?></a></h2>
+            <p id=<?=$article['id']?>><?=strip_tags($article['sub_body'])?><?=$article['type'] === 'טקסט' ? '...' : ''?></p>
     </article>
 <?php
     }
@@ -30,7 +42,7 @@ if (!in_array($request_page, $pages_from_db)) {
 <?php
     foreach ($fetch_articles as $article) {
 ?>
-    <a href=#<?=str_replace(' ', '-', $article['title'])?>><?=$article['title']?></a>
+    <a href=#<?=str_replace(' ', '-', $article['title'])?> data-type=<?=$article['type']?>><?=$article['title']?></a>
 <?php
     }
 ?>  

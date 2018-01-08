@@ -1,33 +1,24 @@
 @import 'animate/animations';
+
 @mixin grid($arg...) {
     @if length($arg) == 4 {
         // $columns, $col_val, $rows, $ro_val
-        display: -ms-grid;
         display: grid;
-        -ms-grid-columns: -ms-repeat(nth($arg, 1), nth($arg, 2));
         grid-template-columns: repeat(nth($arg, 1), nth($arg, 2));
-        -ms-grid-rows: -ms-repeat(nth($arg, 3), nth($arg, 4));
         grid-template-rows: repeat(nth($arg, 3), nth($arg, 4));
     }
     @else if length($arg) == 3 {
         @if nth($arg, 1) == "col" {
-            display: -ms-grid;
             display: grid;
-            -ms-grid-columns: -ms-repeat(nth($arg, 2), nth($arg, 3));
             grid-template-columns: repeat(nth($arg, 2), nth($arg, 3));
         }
         @else if nth($arg, 1) == "ro" {
-            display: -ms-grid;
             display: grid;
-            -ms-grid-rows: -ms-repeat(nth($arg, 2), nth($arg, 3));
             grid-template-rows: repeat(nth($arg, 2), nth($arg, 3));
         }
         @else {
-            display: -ms-grid;
             display: grid;
-            -ms-grid-columns: -ms-repeat(nth($arg, 1), nth($arg, 2));
             grid-template-columns: repeat(nth($arg, 1), nth($arg, 2));
-            -ms-grid-rows: nth($arg, 3);
             grid-template-rows: nth($arg, 3);
         }
     }

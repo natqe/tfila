@@ -1,12 +1,32 @@
 
-function titleAndValidat(elemId) {
+function mainTreat(mainId) {
 
-    document.title = elemId !== '<?=$home?>' ? `${title} | ${elemId}` : title;
+    document.title = mainId !== '<?=$home?>' ? `${title} | ${mainId}` : title;
+
     document.documentElement.scrollTop = 0;
+
+    sele(all, 'a[href^="#"]').forEach(a => a.addEventListener('click', e => {
+        if (location.hash && location.hash === a.hash) {
+            e.preventDefault();
+            history.pushState({}, '', location.pathname);
+            if (a.dataset.type === 'טקסט') setOldP(sele('.setOld'));
+        }
+    }));
+
+    const preface = sele('#preface');
+    if (preface) {
+        new ScrollMagic.Scene({
+            triggerElement: preface,
+            duration: '100%',
+            triggerHook: '0.95'
+        }).setClassToggle(preface, 'fadeIn').
+            addTo(SMController);
+    }
+
 
     '<?php if(!isset($_SESSION["user"])):?>';
 
-    if (elemId === '<?=$sign_up?>') {
+    if (mainId === '<?=$sign_up?>') {
         const [signupPass, signupPassConfirm] = sele(sele("[id='<?=$sign_up?>']"), 'input[name=su_pass]', 'input[type=password]:not([name])');
         signupPass.onchange = signupPassConfirm.onkeyup =
             () => signupPass.value !== signupPassConfirm.value ?
@@ -14,7 +34,7 @@ function titleAndValidat(elemId) {
                 signupPassConfirm.setCustomValidity('');
     }
 
-    switch (elemId) {
+    switch (mainId) {
         case '<?=$sign_up?>':
         case '<?=$sign_in?>':
             const inputEmail = sele('input[type=email]');
@@ -30,24 +50,8 @@ function titleAndValidat(elemId) {
 
     '<?php endif;?>';
 
-    const currentPage = fPages.find(page => page.name === elemId);
-    if (currentPage && currentPage.type !== 'וידאו' && currentPage.type !== 'אודיו') {
-
-        const mainArticle = sele(main, 'article');
-        new ScrollMagic.Scene({
-            triggerElement: mainArticle,
-            duration: '100%',
-            triggerHook: '0.95'
-        }).setClassToggle(mainArticle, 'fadeIn').
-            addTo(SMController);
-
-        sele(all, 'a[href^="#"]').forEach(a => a.addEventListener('click', e => {
-            if (location.hash && location.hash === a.hash) {
-                e.preventDefault();
-                history.pushState({}, '', location.pathname);
-                setOldP(sele('.setOld'));
-            }
-        }));
-    }
-
+    setTimeout(() => sele(all, 'article[data-type="טקסט"]').forEach(articleText => {
+        const p = sele(articleText, 'p');
+        paras.find(para => para.id === p.id) || get('p_from', p.id).then(data => paras.push({ id: p.id, HTML: data })).catch(err => console.log(err));
+    }), 0);
 }

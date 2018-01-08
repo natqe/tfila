@@ -5,9 +5,7 @@ sele('aside').style.height = `${window.innerHeight - header.offsetHeight - 20}px
 
 sele(all, 'time', footerSmall).forEach(time => time.textContent = new Date().getFullYear());
 
-titleAndValidat(main.id);
-
-getParas();
+mainTreat(main.id);
 
 loadPFromHash();
 
@@ -16,14 +14,9 @@ if (location.hash) shiftWindow();
 window.addEventListener("hashchange", shiftWindow);
 
 window.addEventListener('popstate', () => {
-    sele('main').id === idFrom(location.pathname) || changeMain(location.pathname);
-    if (!location.hash) {
-        const theP = sele('.setOld');
-        if (theP) setOldP(theP);
-    } else {
-        sele(all, `article[id]:not([id='${decodeURI(location.hash.replace("#", ""))}'])`).forEach(article => setOldP(sele(article, '[id]')));
-        loadPFromHash();
-    }
+    sele('main').id === idFrom(location.pathname) || changeMain(idFrom(location.pathname));
+    sele(all, `article[data-type="טקסט"]:not([id='${decodeURI(location.hash.replace("#", ""))}'])`).forEach(article => setOldP(sele(article, 'p')));
+    if (location.hash) loadPFromHash();
 });
 
 headerNavContact.addEventListener('click', e => {
@@ -46,14 +39,17 @@ sele(all, 'a:not([href^="#"]):not([href^="http"]):not([href^="javascript:void(0)
 
 sele(all, 'abbr', headerNav).forEach(abbr => abbr.addEventListener('click', () => {
     headerNav.classList.add('searchMode');
-    [main, footer].forEach(elem => {
-        elem.addEventListener('click', e => {
-            headerNav.classList.remove('searchMode');
-        }, {once:true});
-});
+    [main, footer, sele('picture')].forEach(elem =>
+         elem.addEventListener('click', () => headerNav.classList.remove('searchMode'), { once: true }));
 }));
+
+headerNavInput.addEventListener('keyup', () =>{
+        const search =headerNavInput.value ?  `חיפוש-${headerNavInput.value.trim().replace(/\s+/g, '-')}` : '/';
+        changeMain(search);
+        history.pushState({}, '', search);
+    }
+);
 
 setTimeout(() => pages.forEach(page =>
     contents.find(content => content.id === page) || get('content', page).then(data => contents.push({ id: page, HTML: data }))
 ), 5000);
-

@@ -65,38 +65,32 @@ headerNavInput.addEventListener('keypress', e => {
 
 
 
-    const currentPage = fPages.find(page => page.name === elemId);
-    if (currentPage && currentPage.type !== 'וידאו' && currentPage.type !== 'אודיו') {
+const currentPage = fPages.find(page => page.name === elemId);
+if (currentPage && currentPage.type !== 'וידאו' && currentPage.type !== 'אודיו') {
 
-        sele(all, '[data-id]').forEach(link => link.addEventListener('click', e => {
-            e.stopPropagation();
-            let para = paras.find(p => p.id == link.dataset.id);
-            if (para) {
-                const p = sele(`[id='${link.dataset.id}']`);
-                if (p.getAttribute('setOld')) {
-                    if(location.hash === link.hash) {
-                        e.preventDefault();
-                        history.pushState({}, '', location.pathname);
-                    }
-                    p.innerHTML = oldParas.find(old => old.id === link.dataset.id).HTML;
-                    p.removeAttribute('setOld');
-                } else {
-                    p.innerHTML = para.HTML;
-                    p.setAttribute('setOld', link.dataset.id);
+    sele(all, '[data-id]').forEach(link => link.addEventListener('click', e => {
+        e.stopPropagation();
+        let para = paras.find(p => p.id == link.dataset.id);
+        if (para) {
+            const p = sele(`[id='${link.dataset.id}']`);
+            if (p.getAttribute('setOld')) {
+                if (location.hash === link.hash) {
+                    e.preventDefault();
+                    history.pushState({}, '', location.pathname);
                 }
+                p.innerHTML = oldParas.find(old => old.id === link.dataset.id).HTML;
+                p.removeAttribute('setOld');
             } else {
-                getAndSetP(sele(`[id='${link.dataset.id}']`));
+                p.innerHTML = para.HTML;
+                p.setAttribute('setOld', link.dataset.id);
             }
-        }));
+        } else {
+            getAndSetP(sele(`[id='${link.dataset.id}']`));
+        }
+    }));
 
 
-    }
-
-
-
-
-
-
+}
 
 
 
@@ -105,17 +99,62 @@ headerNavInput.addEventListener('keypress', e => {
 
 
 
-    const controller = new ScrollMagic.Controller();
-    new ScrollMagic.Scene({
-        triggerElement: header,
-        duration: '90%',
-        triggerHook: '0.9'
+
+
+
+
+
+
+const controller = new ScrollMagic.Controller();
+new ScrollMagic.Scene({
+    triggerElement: header,
+    duration: '90%',
+    triggerHook: '0.9'
+}).
+    setClassToggle('#חסד-אל-כל-היום', 'fadeIn').
+    addIndicators({
+        name: 'fade scene',
+        colorTrigger: 'black',
+        colorStart: 'blue',
+        colorEnd: 'green'
     }).
-        setClassToggle('#חסד-אל-כל-היום', 'fadeIn').
-        addIndicators({
-            name: 'fade scene',
-            colorTrigger: 'black',
-            colorStart: 'blue',
-            colorEnd: 'green'
-        }).
-        addTo(controller);
+    addTo(controller);
+
+
+const currentPage = fPages.find(page => page.name === idFrom(location.pathname));
+if (currentPage && currentPage.type !== 'וידאו' && currentPage.type !== 'אודיו') {
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    const searchId = `חיפוש-${headerNavInput.value.trim().replace(/\s+/g, '-')}`;
+    let content = contents.find(content => content.id == searchId);
+    if (content) {
+        mainInAction(content);
+    } else {
+        get('search', headerNavInput.value)
+            .then(data => {
+                contents.push(content = { id: searchId, HTML: data });
+                mainInAction(content);
+            })
+            .catch(err =>
+                console.log(err));
+    }
+    history.pushState({}, '', `?search=${headerNavInput.value}`);
+    console.log(main.id);

@@ -1,11 +1,9 @@
 
 function loadPFromHash() {
-
-    const currentPage = fPages.find(page => page.name === idFrom(location.pathname));
-    if (currentPage && currentPage.type !== 'וידאו' && currentPage.type !== 'אודיו') {
-
-        const p = location.hash ? sele(sele(decodeURI(location.hash)), '[id]') : false;
-        if (p && !isNaN(p.id)) {
+    const article = sele(decodeURI(location.hash));
+    if (article) {
+        if (article.dataset.type === 'טקסט') {
+            const p = sele(article, 'p');
             oldParas.push({ id: p.id, HTML: p.innerHTML });
             const dataPara = paras.find(para => para.id === p.id);
             if (dataPara) {
@@ -20,8 +18,9 @@ function loadPFromHash() {
                     console.log(err));
             }
             p.classList.add('setOld');
+        } else {
+            article.scrollIntoView();
+            scrollBy(0, -(header.offsetHeight + 70));
         }
-
     }
-
 }

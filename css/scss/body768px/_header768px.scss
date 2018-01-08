@@ -109,8 +109,11 @@
         visibility: hidden;
       }
       >input{
-        grid-column: 1/100;
-        margin: 1rem;
+        font-size: 1.3rem;
+        grid-column: 5/97;
+        &::placeholder{
+          font-size: 1rem;
+        }
       }
     }
   }

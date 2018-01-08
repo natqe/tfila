@@ -121,29 +121,18 @@
       input{
         grid-column: 22/96;
         grid-row: 1/2;
-        display: block;
+        display: inline-block;
         margin: 1rem 0;
         background: $bgcDesat;
-        color: invert($bgcDesat);
-        border-width: 0.01rem;
-        border-style: hidden;
-        border-color: initial;
-        border-image: initial;
-        text-rendering: auto;
-        letter-spacing: normal;
-        word-spacing: normal;
-        text-transform: none;
-        text-indent: 0px;
-        text-shadow: none;
-        text-align: start;
         font: inherit;
-        -webkit-writing-mode: horizontal-tb;
+        color: invert($bgcDesat);
+        border: none;
         border-radius: 10px;
         &:focus{
           outline: none;
         }
         &::placeholder{
-          color: inherit;
+          color: invert($bgcDesat);
           opacity: 0.2;
         }
       }
