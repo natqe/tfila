@@ -39,16 +39,15 @@ sele(all, 'a:not([href^="#"]):not([href^="http"]):not([href^="javascript:void(0)
 
 sele(all, 'abbr', headerNav).forEach(abbr => abbr.addEventListener('click', () => {
     headerNav.classList.add('searchMode');
-    [main, footer, sele('picture')].forEach(elem =>
-         elem.addEventListener('click', () => headerNav.classList.remove('searchMode'), { once: true }));
+    headerNavInput.focus();
+    headerNavInput.addEventListener('blur', () => headerNav.classList.remove('searchMode'), { once: true });
 }));
 
-headerNavInput.addEventListener('keyup', () =>{
-        const search =headerNavInput.value ?  `חיפוש-${headerNavInput.value.trim().replace(/\s+/g, '-')}` : '/';
-        changeMain(search);
-        history.pushState({}, '', search);
-    }
-);
+headerNavInput.addEventListener('keyup', () => {
+    const search = headerNavInput.value ? `חיפוש-${headerNavInput.value.trim().replace(/\s+/g, '-')}` : '/';
+    changeMain(search);
+    history.pushState({}, '', search);
+});
 
 setTimeout(() => pages.forEach(page =>
     contents.find(content => content.id === page) || get('content', page).then(data => contents.push({ id: page, HTML: data }))

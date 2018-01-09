@@ -21,15 +21,16 @@ $search = 'חיפוש-';
 $fetch_sub_menus = $pdo->query('SELECT * FROM sub_menu')->fetchAll();
 
 $request_page = ($_GET['content'] ?? $_GET['search'] ?? ltrim(urldecode($_SERVER['REQUEST_URI']), '/')) ?: $home;
-$search_from_url = (!isset($_GET['search']) && substr($request_page, 0, strlen($search)) === $search)? true : false;
-$strSearch = (isset($_GET['search']) || $search_from_url) ?
+
+$search_str = (isset($_GET['search']) || substr($request_page, 0, strlen($search)) === $search) ?
     str_replace('-', ' ', $_GET['search'] ?? substr($request_page, strlen($search), strlen($request_page))) :
     false;
-if(!strlen($strSearch)) $strSearch = false;
-if (!in_array($request_page, $pages) && $strSearch === false && !isset($_GET['search'])) $request_page = $not_found;
+if(!strlen($search_str)) $search_str = false;
+
+if (!in_array($request_page, $pages) && $search_str === false) $request_page = $not_found;
 
 if(isset($_GET['search'])){
-    require_once "html/body/main.html";
+    if ($search_str) require_once "html/body/main.html";
 }elseif (isset($_GET['content'])) {
     if (in_array($_GET['content'], $pages)) require_once "html/body/main.html";
 } else {

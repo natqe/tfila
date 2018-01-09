@@ -1,5 +1,5 @@
 <?php
-if($request_page !== $sign_in && $request_page !== $sign_up && !$strSearch){
+if($request_page !== $sign_in && $request_page !== $sign_up && !$search_str){
     $fetch_preface = $pdo->query("SELECT title, body FROM prefaces WHERE page='$request_page'")->fetch();
 }
 if (!in_array($request_page, $pages_from_db) && in_array($request_page, $pages)) {
@@ -10,12 +10,12 @@ if (!in_array($request_page, $pages_from_db) && in_array($request_page, $pages))
     <article id=preface>
             <h1>
                 <?=$fetch_preface['title'] ?? ''?>
-                <?=$strSearch ? 'תוצאות חיפוש עבור: "'.$strSearch.'"' : ''?>
+                <?=$search_str ? 'תוצאות חיפוש עבור: "'.$search_str.'"' : ''?>
             </h1>
             <p><?=$fetch_preface['body'] ?? ''?></p>
     </article>
 <?php
-    if (!$strSearch) {
+    if (!$search_str) {
         $fetch_articles = $pdo->query(
             "SELECT id, type, title, IF(type='טקסט', SUBSTRING(body, 1, ROUND(RAND()*(175-125))+125), body) AS sub_body FROM articles
             WHERE page='$request_page' ORDER BY created_at DESC"
@@ -25,7 +25,7 @@ if (!in_array($request_page, $pages_from_db) && in_array($request_page, $pages))
             "SELECT id, type, title, IF(type='טקסט', SUBSTRING(body, 1, ROUND(RAND()*(175-125))+125), body) AS sub_body FROM articles
             WHERE body LIKE ? OR title LIKE ? ORDER BY created_at DESC"
         );
-        $prepare_search->execute(["%$strSearch%", "%$strSearch%"]);
+        $prepare_search->execute(["%$search_str%", "%$search_str%"]);
         $fetch_articles = $prepare_search->fetchAll();
     }
     foreach ($fetch_articles as $article) {

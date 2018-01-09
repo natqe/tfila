@@ -13,7 +13,7 @@ function changeMain (toMain) {
     if (content) {
         mainInAction(content);
     } else {
-        get(varGet, varGet === 'content' ? toMain : valGet)
+        get(varGet, valGet ? valGet : toMain)
             .then(data => {
                 contents.push(content = { id: toMain, HTML: data });
                 mainInAction(content);

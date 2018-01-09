@@ -1,0 +1,32 @@
+<section>
+<form method=post autocomplete=off>
+    <fieldset>
+        <legend>התחברות לאתר:</legend>
+        <label>
+            <span>דואר אלקטרוני</span>
+            <input type=email name=email placeholder=name@email.com spellcheck=false required <?='value=' , $_POST[ 'email']??''?>>
+        </label>
+        <label>
+            <span>סיסמא</span>
+            <input type=password name=pass placeholder=&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull; required>
+        </label>
+        <label>
+            <span>זכור אותי</span>
+            <input type=checkbox name=remember>
+        </label>
+    </fieldset>
+    <input type=submit>
+    <input type=reset>
+</form>
+</section>
+<?php
+// if (isset($_POST['email']) && isset($_POST['password'])) {
+//     $_SESSION['email']  = $_POST['email'];
+//     $_SESSION['password']  = $_POST['password'];
+// } else {
+//     # code...
+// }
+?>
+<aside>
+
+</aside>

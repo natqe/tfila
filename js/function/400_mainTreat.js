@@ -38,6 +38,7 @@ function mainTreat(mainId) {
         case '<?=$sign_up?>':
         case '<?=$sign_in?>':
             const inputEmail = sele('input[type=email]');
+            inputEmail.focus();
             inputEmail.addEventListener('keyup', e => {
                 e.stopPropagation();
                 if (!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(inputEmail.value)) {

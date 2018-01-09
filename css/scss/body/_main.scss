@@ -91,4 +91,9 @@
       }
     }
   }
+
+  &[id^=חיפוש-]>section>article>p span.mark[class*=חיפוש-]{
+    background-color: lighten($gold, $changeAmount);
+    color: darken($bgc, $changeAmount);
+  }
 }

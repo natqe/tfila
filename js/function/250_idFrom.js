@@ -1,1 +1,4 @@
-const idFrom = uri => decodeURI(uri.split('/').pop());
+
+function idFrom(uri){
+  return decodeURI(uri.split('/').pop());
+};
