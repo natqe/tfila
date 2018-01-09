@@ -14,7 +14,7 @@ function mainInAction(content) {
             p.innerHTML = p.innerHTML.replace(/<(\/)?span class=\'mark חיפוש-[^>]*>/g, '<span>');
             p.innerHTML = p.innerHTML.replace(search, `<span class='mark ${main.id}' >${valGet}</span>`);
         });
-        sele(all, 'span.mark', main).forEach(span => span.classList.contains(main.id) || span.classList.remove('mark'));
+        removeSpansMark(main);
     }
     
 }

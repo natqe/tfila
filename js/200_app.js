@@ -17,6 +17,7 @@ window.addEventListener('popstate', () => {
     sele('main').id === idFrom(location.pathname) || changeMain(idFrom(location.pathname));
     sele(all, `article[data-type="טקסט"]:not([id='${decodeURI(location.hash.replace("#", ""))}'])`).forEach(article => setOldP(sele(article, 'p')));
     if (location.hash) loadPFromHash();
+    removeSpansMark(main);
 });
 
 headerNavContact.addEventListener('click', e => {

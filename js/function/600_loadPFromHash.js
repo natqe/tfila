@@ -9,7 +9,7 @@ function loadPFromHash() {
             if (dataPara) {
 
                 p.innerHTML = markSearch(dataPara.HTML);
-                sele(all, 'span.mark', p).forEach(span => span.classList.contains(main.id) || span.classList.remove('mark'));
+                removeSpansMark(p);
 
             } else {
                 get('p_from', p.id).then(data => {
@@ -17,7 +17,7 @@ function loadPFromHash() {
 
                     p.innerHTML = markSearch(data);
 
-                    sele(all, 'span.mark', p).forEach(span => span.classList.contains(main.id) || span.classList.remove('mark'));
+                    removeSpansMark(p);
 
                     p.scrollIntoView();
                     scrollBy(0, -(header.offsetHeight + 70));
