@@ -13,11 +13,6 @@
       > a {
         grid-column: 1 / 2;
         margin-right: .3rem;
-        > figure {
-          > picture {
-            grid-row: 1 / 7;
-          }
-        }
       }
 
       > div {
@@ -68,7 +63,7 @@
         max-height: 0;
         opacity: 0;
         visibility: hidden;
-        transition: max-height 1s, opacity 0.5s 0.2s, visibility 0.5s 0.2s;
+        transition: max-height 0.3s, opacity 0.1s 0.1s, visibility 0.1s 0.1s;
         
 
         > a {
