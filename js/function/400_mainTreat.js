@@ -51,7 +51,7 @@ function mainTreat(mainId) {
 
     '<?php endif;?>';
 
-    setTimeout(() => sele(all, 'article[data-type="טקסט"]').forEach(articleText => {
+    setTimeout(() => sele(all, 'article[data-type="טקסט"]:not([id="preface"])', mainSection).forEach(articleText => {
         const p = sele(articleText, 'p');
         paras.find(para => para.id === p.id) || get('p_from', p.id).then(data => paras.push({ id: p.id, HTML: data })).catch(err => console.log(err));
     }), 0);

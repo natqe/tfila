@@ -1,15 +1,22 @@
 
 main.style.marginTop = `${header.offsetHeight + 30}px`;
 
-sele('aside').style.height = `${window.innerHeight - header.offsetHeight - 20}px`;
+mainAside.style.height = `${window.innerHeight - header.offsetHeight - 20}px`;
 
-sele(all, 'time', footerSmall).forEach(time => time.textContent = new Date().getFullYear());
+if (location.hash) shiftWindow();
 
-mainTreat(main.id);
+if (main.id.startsWith('חיפוש-')) {
+    sele(all, 'article[data-type="טקסט"]:not([id="preface"]', mainSection).forEach(articleText => {
+        const p = sele(articleText, 'p');
+        p.innerHTML = markSearch(p.innerHTML);
+    });
+}
 
 loadPFromHash();
 
-if (location.hash) shiftWindow();
+mainTreat(main.id);
+
+sele(all, 'time', footerSmall).forEach(time => time.textContent = new Date().getFullYear());
 
 window.addEventListener("hashchange", shiftWindow);
 

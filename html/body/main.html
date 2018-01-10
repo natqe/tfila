@@ -1,12 +1,9 @@
-<?php
-if($request_page !== $sign_in && $request_page !== $sign_up && !$search_str){
-    $fetch_preface = $pdo->query("SELECT title, body FROM prefaces WHERE page='$request_page'")->fetch();
-}
-if (!in_array($request_page, $pages_from_db) && in_array($request_page, $pages)) {
-    require_once "html/body/main/$request_page.html";
-} else {
-?>
 <section>
+<?php
+$is_sign_up = ($request_page === $sign_up);
+if ($request_page !== $sign_in && !$is_sign_up) {
+    if(!$search_str) $fetch_preface = $pdo->query("SELECT title, body FROM prefaces WHERE page='$request_page'")->fetch();    
+?>
     <article id=preface>
             <h1>
                 <?=$fetch_preface['title'] ?? ''?>
@@ -15,38 +12,62 @@ if (!in_array($request_page, $pages_from_db) && in_array($request_page, $pages))
             <p><?=$fetch_preface['body'] ?? ''?></p>
     </article>
 <?php
-    if (!$search_str) {
+    if($request_page !== $home && $request_page !== $not_found){
+        if (!$search_str) {
         $fetch_articles = $pdo->query(
             "SELECT id, type, title, IF(type='טקסט', SUBSTRING(body, 1, ROUND(RAND()*(175-125))+125), body) AS sub_body FROM articles
             WHERE page='$request_page' ORDER BY created_at DESC"
         )->fetchAll();
-    } else {
+        } else {
         $prepare_search = $pdo->prepare(
             "SELECT id, type, title, IF(type='טקסט', SUBSTRING(body, 1, ROUND(RAND()*(175-125))+125), body) AS sub_body FROM articles
             WHERE body LIKE ? OR title LIKE ? ORDER BY created_at DESC"
         );
         $prepare_search->execute(["%$search_str%", "%$search_str%"]);
         $fetch_articles = $prepare_search->fetchAll();
-    }
-    foreach ($fetch_articles as $article) {
+        }
+        foreach ($fetch_articles as $article) {
 ?>
     <article id=<?=str_replace(' ', '-', $article['title'])?> data-type=<?=$article['type']?>>
             <h2><a href=#<?=str_replace(' ', '-', $article['title'])?> data-type=<?=$article['type']?>><?=$article['title']?></a></h2>
             <p id=<?=$article['id']?>><?=$article['type'] === 'טקסט' ? strip_tags($article['sub_body']).'...' : $article['sub_body']?></p>
     </article>
 <?php
+        }
     }
+} else {
+?>
+<form method=post autocomplete=off>
+    <fieldset>
+        <legend><?=$request_page?> לאתר:</legend>
+        <label>
+            <span>דואר אלקטרוני <?=$is_sign_up ? '*' : ''?></span>
+            <input type=email name=email placeholder=name@email.com spellcheck=false required <?='value=' . ($_POST[ 'email']?? '')?>>
+        </label>
+        <label>
+            <span>סיסמא <?=$is_sign_up ? '*' : ''?></span>
+            <input type=password name=<?=$is_sign_up ? 'su_pass' : 'pass'?> placeholder=&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull; required>
+        </label>
+        <label>
+            <span><?=$is_sign_up ? 'אימות סיסמא *' : 'זכור אותי'?></span>
+            <input type=<?=$is_sign_up ? 'password placeholder=&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull; required' : 'checkbox name=remember'?>>
+        </label>
+    </fieldset>
+    <input type=submit>
+    <input type=reset>
+</form>
+<?php
+}    
 ?>
 </section>
 <aside>
 <?php
+if(isset($fetch_articles)){
     foreach ($fetch_articles as $article) {
 ?>
     <a href=#<?=str_replace(' ', '-', $article['title'])?> data-type=<?=$article['type']?>><?=$article['title']?></a>
 <?php
     }
+}
 ?>  
 </aside>
-<?php
-}
-?>

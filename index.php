@@ -4,7 +4,13 @@
 
 // echo var_export(); die; //for tests
 
-if (isset($_GET['p_from'])) die(require_once 'html/body/main/section/article/p.html');
+if (isset($_GET['p_from'])) {
+    $prepare_p = $pdo->prepare("SELECT body FROM articles WHERE id = ? ");
+    $prepare_p->execute([$_GET['p_from']]);
+    $fetch_p = $prepare_p->fetch();
+    echo $fetch_p['body'];
+    die;
+};
 
 $fetch_pages = $pdo->query('SELECT * FROM pages ORDER BY created_at')->fetchAll();
 

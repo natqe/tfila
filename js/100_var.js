@@ -3,6 +3,7 @@ const all = '*';
 const title = document.title;
 const [header, main, footer] = sele('header', 'main', 'footer');
 const headerNav = sele(header, 'nav');
+const [mainSection, mainAside] = sele(main, 'section', 'aside');
 const footerSmall = sele(footer, 'small');
 const [headerNavSection, headerNavContact, headerNavInput] = sele(headerNav, 'section', '[href^="javascript:void(0)"]', 'input[type="search"]');
 const [headerNavSectionDiv, headerNavSectionPicture] = sele(headerNavSection, 'div', 'picture');
