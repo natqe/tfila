@@ -1,9 +1,15 @@
 
 function mainTreat(mainId) {
+    mainAside = sele(main, 'aside');
+    const mainAsideNav= sele(mainAside, 'nav');
+
 
     document.title = mainId !== '<?=$home?>' ? `${title} | ${mainId}` : title;
 
     document.documentElement.scrollTop = 0;
+
+    mainAside.style.top = `${header.offsetHeight - 30}px`;
+    mainAside.style.height = `${window.innerHeight}px`;
 
     sele(all, 'a[href^="#"]').forEach(a => a.addEventListener('click', e => {
         if (location.hash && location.hash === a.hash) {
@@ -11,18 +17,16 @@ function mainTreat(mainId) {
             history.pushState({}, '', location.pathname);
             if (a.dataset.type === 'טקסט') setOldP(sele('.setOld'));
         }
+        const asideA = a.parentElement.tagName === 'U' && a.parentElement.parentElement.tagName === 'NAV' ?
+         a : 
+         sele(mainAsideNav, `a[href="${a.getAttribute('href')}"]`);
+         
+        if (!asideA.classList.contains('active')) {
+            const oldActive = sele(mainAsideNav, '.active');
+            if (oldActive) oldActive.classList.remove('active');
+        }
+        asideA.classList.toggle('active');
     }));
-
-    const preface = sele('#preface');
-    if (preface) {
-        new ScrollMagic.Scene({
-            triggerElement: preface,
-            duration: '100%',
-            triggerHook: '0.95'
-        }).setClassToggle(preface, 'fadeIn').
-            addTo(SMController);
-    }
-
 
     '<?php if(!isset($_SESSION["user"])):?>';
 
@@ -51,8 +55,10 @@ function mainTreat(mainId) {
 
     '<?php endif;?>';
 
-    setTimeout(() => sele(all, 'article[data-type="טקסט"]:not([id="preface"])', mainSection).forEach(articleText => {
-        const p = sele(articleText, 'p');
-        paras.find(para => para.id === p.id) || get('p_from', p.id).then(data => paras.push({ id: p.id, HTML: data })).catch(err => console.log(err));
-    }), 0);
+    sele(all, 'article[data-type="טקסט"]:not([id="preface"])', mainSection).forEach(articleText => {
+        setTimeout(() => {
+            const p = sele(articleText, 'p[id]');
+            paras.find(para => para.id === p.id) || get('p_from', p.id).then(data => paras.push({ id: p.id, HTML: data })).catch(err => console.log(err));
+        }, 0);
+    });
 }

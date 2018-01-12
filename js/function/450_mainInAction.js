@@ -4,7 +4,7 @@ function mainInAction(content) {
     mainTreat(main.id);
 
     if (main.id.startsWith('חיפוש-')) {
-        sele(all, 'article:not([id="preface"])', main).forEach(article => {
+        sele(all, 'article[id][data-type]:not([id="preface"]', main).forEach(article => {
             const p = sele(article, 'p');
             removeSpansMark(p);
             p.innerHTML = markSearch(p.innerHTML);

@@ -8,15 +8,17 @@ $blist: #14281e, #142b42, #191428, #231428, #281419, #281714, #281c14, #282114, 
 $gold: #534429;
 $glist: #293b53, #295341, #352953, #475329, #4a2953, #532947, #533a29, #534f29, #6d614c;
 
-$bgl: mix(nth($glist, 1), nth($blist, 1)), #1f3f42, #271f3e, #353429, #391f36, #3e202e, #3e2b1f, #3e381f, #4b4430;//nth1 = #1f3239
+$bgl: #1f3239, #1f3f42, #271f3e, #353429, #391f36, #3e202e, #3e2b1f, #3e381f, #4b4430;
 
 $logo: $gold;
-$bgc: mix(nth($blist, 2), nth($bgl, 1), 25%);
-$color: invert(mix($logo, $bgc, 62.5%));
 $changeAmount: 10%;
+$bgc: mix(nth($blist, 2), nth($bgl, 1), $changeAmount * 2.5);
+$color: invert($bgc);
 $bgcDark: darken($bgc, $changeAmount);
-$bgcLDark: darken($bgc, 3%);
+$bgcLDark: darken($bgc, $changeAmount / 3);
 $bgcLight: lighten($bgc, $changeAmount);
-
 $bgcSat: saturate( $bgc, $changeAmount);
 $bgcDesat: desaturate( $bgc, $changeAmount);
+$logoLight: lighten($logo, $changeAmount);
+$glist8base: #fffad1;
+$colorComp: $glist8base;

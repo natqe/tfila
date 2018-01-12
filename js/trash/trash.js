@@ -158,3 +158,14 @@ if (currentPage && currentPage.type !== 'וידאו' && currentPage.type !== 'א
     }
     history.pushState({}, '', `?search=${headerNavInput.value}`);
     console.log(main.id);
+
+    const SMController = new ScrollMagic.Controller();
+    const preface = sele('#preface');
+    if (preface) {
+        new ScrollMagic.Scene({
+            triggerElement: preface,
+            duration: '100%',
+            triggerHook: '0.95'
+        }).setClassToggle(preface, 'fadeIn').
+            addTo(SMController);
+    }

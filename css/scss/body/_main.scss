@@ -21,7 +21,7 @@
           cursor: text;
 
           &:hover {
-            color: darken(complement($color), $changeAmount);
+            color: $colorComp;
           }
         }
 
@@ -29,7 +29,7 @@
           content: '';
           display: block;
           width: 50%;
-          border-bottom: 1px solid complement($color);
+          border-bottom: 1px solid $colorComp;
         }
       }
 
@@ -77,23 +77,51 @@
     position: fixed;
     width: 20%;
     text-align: center;
+    z-index: 1;
+    overflow-y: auto;
+    
 
-    > a {
-      line-height: 30px;
-      display: block;
+    &::-webkit-scrollbar-track {
+      -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+      background-color: $bgc;
+      border-radius: 10px;
+    }
 
-      &:hover {
-        text-decoration: underline;
-      }
+    &::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      background-image: -webkit-linear-gradient(bottom, $bgc 0%, $bgcLight 50%, $bgcLight 51%, $bgc 100%);
+    }
 
-      &:nth-of-type(1) {
-        margin-top: 40px;
+    > nav {
+      // position: absolute;
+      // left: -50%;
+      // right: -50%;
+      padding-bottom: 5rem;
+      > u {
+        text-decoration: none;
+        display: block;
+        line-height: 2rem;
+
+        > a {
+          line-height: 30px;
+          display: inline-block;
+
+          &:hover,
+          &.active {
+            color: $colorComp;
+            text-decoration: underline;
+          }
+        }
+
+        &:nth-of-type(1) {
+          margin-top: 40px;
+        }
       }
     }
   }
 
-  &[id^=חיפוש-]>section>article>p span.mark[class*=חיפוש-]{
-    background-color: lighten($gold, $changeAmount);
-    color: darken($bgc, $changeAmount);
+  &[id^=חיפוש-]>section>article>p span.mark[class*=חיפוש-] {
+    background-color: $logoLight;
+    color: $bgcDark;
   }
 }

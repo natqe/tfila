@@ -1,18 +1,22 @@
 
 main.style.marginTop = `${header.offsetHeight + 30}px`;
 
-mainAside.style.height = `${window.innerHeight - header.offsetHeight - 20}px`;
-
-if (location.hash) shiftWindow();
+if (location.hash) {
+    shiftWindow();
+    const locationHash = decodeURI(location.hash);
+    const mainAsideA = sele(mainAside, `a[href="${locationHash}"]`);
+    if (mainAsideA && sele(mainSection, locationHash)) {
+        mainAsideA.classList.add('active');
+        loadPFromHash();
+    }
+}
 
 if (main.id.startsWith('חיפוש-')) {
-    sele(all, 'article[data-type="טקסט"]:not([id="preface"]', mainSection).forEach(articleText => {
-        const p = sele(articleText, 'p');
+    sele(all, 'article[id][data-type]:not([id="preface"]', mainSection).forEach(articleText => {
+        const p = sele(articleText, 'p[id]');
         p.innerHTML = markSearch(p.innerHTML);
     });
 }
-
-loadPFromHash();
 
 mainTreat(main.id);
 

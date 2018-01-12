@@ -1,31 +1,39 @@
 <section>
 <?php
-$is_sign_up = ($request_page === $sign_up);
+
+$is_sign_up = $request_page === $sign_up;
+
 if ($request_page !== $sign_in && !$is_sign_up) {
-    if(!$search_str) $fetch_preface = $pdo->query("SELECT title, body FROM prefaces WHERE page='$request_page'")->fetch();    
+
+    if(!$search_str) $fetch_preface = $pdo->query("SELECT title, body FROM prefaces WHERE page='$request_page'")->fetch();
+
 ?>
     <article id=preface>
-            <h1>
-                <?=$fetch_preface['title'] ?? ''?>
-                <?=$search_str ? 'תוצאות חיפוש עבור: "'.$search_str.'"' : ''?>
-            </h1>
+            <h1><?=$search_str ? "תוצאות חיפוש עבור: \"$search_str\"" : ($fetch_preface['title'] ?? '')?></h1>
             <p><?=$fetch_preface['body'] ?? ''?></p>
     </article>
 <?php
+
     if($request_page !== $home && $request_page !== $not_found){
+
         if (!$search_str) {
-        $fetch_articles = $pdo->query(
-            "SELECT id, type, title, IF(type='טקסט', SUBSTRING(body, 1, ROUND(RAND()*(175-125))+125), body) AS sub_body FROM articles
-            WHERE page='$request_page' ORDER BY created_at DESC"
-        )->fetchAll();
+
+            $fetch_articles = $pdo->query(
+                "SELECT id, type, title, IF(type='טקסט', SUBSTRING(body, 1, ROUND(RAND()*(175-125))+125), body) AS sub_body FROM articles
+                WHERE page='$request_page' ORDER BY id"
+            )->fetchAll();
+
         } else {
-        $prepare_search = $pdo->prepare(
-            "SELECT id, type, title, IF(type='טקסט', SUBSTRING(body, 1, ROUND(RAND()*(175-125))+125), body) AS sub_body FROM articles
-            WHERE body LIKE ? OR title LIKE ? ORDER BY created_at DESC"
-        );
-        $prepare_search->execute(["%$search_str%", "%$search_str%"]);
-        $fetch_articles = $prepare_search->fetchAll();
+
+            $prepare_search = $pdo->prepare(
+                "SELECT id, type, title, IF(type='טקסט', SUBSTRING(body, 1, ROUND(RAND()*(175-125))+125), body) AS sub_body FROM articles
+                WHERE body LIKE ? OR title LIKE ? ORDER BY page"
+            );
+            $prepare_search->execute(["%$search_str%", "%$search_str%"]);
+            $fetch_articles = $prepare_search->fetchAll();
+
         }
+
         foreach ($fetch_articles as $article) {
 ?>
     <article id=<?=str_replace(' ', '-', $article['title'])?> data-type=<?=$article['type']?>>
@@ -34,8 +42,10 @@ if ($request_page !== $sign_in && !$is_sign_up) {
     </article>
 <?php
         }
+
     }
-} else {
+
+} else { 
 ?>
 <form method=post autocomplete=off>
     <fieldset>
@@ -63,11 +73,17 @@ if ($request_page !== $sign_in && !$is_sign_up) {
 <aside>
 <?php
 if(isset($fetch_articles)){
+?>
+<nav>
+<?php    
     foreach ($fetch_articles as $article) {
 ?>
-    <a href=#<?=str_replace(' ', '-', $article['title'])?> data-type=<?=$article['type']?>><?=$article['title']?></a>
+    <u><a href=#<?=str_replace(' ', '-', $article['title'])?> data-type=<?=$article['type']?>><?=$article['title']?></a></u>
 <?php
     }
+?>
+</nav>
+<?php    
 }
 ?>  
 </aside>
