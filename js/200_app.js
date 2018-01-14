@@ -4,7 +4,7 @@ main.style.marginTop = `${header.offsetHeight + 30}px`;
 if (location.hash) {
     shiftWindow();
     const locationHash = decodeURI(location.hash);
-    const mainAsideA = sele(mainAside, `a[href="${locationHash}"]`);
+    const mainAsideA = sele(mainAside, `nav u a[href="${locationHash}"]`);
     if (mainAsideA && sele(mainSection, locationHash)) {
         mainAsideA.classList.add('active');
         loadPFromHash();
@@ -12,15 +12,10 @@ if (location.hash) {
 }
 
 if (main.id.startsWith('חיפוש-')) {
-    sele(all, 'article[id][data-type]:not([id="preface"]', mainSection).forEach(articleText => {
-        const p = sele(articleText, 'p[id]');
-        p.innerHTML = markSearch(p.innerHTML);
-    });
+    sele(all, 'article[id][data-type]:not([id="preface"]) > p[id]', mainSection).forEach(p => p.innerHTML = markSearch(p.innerHTML));
 }
 
 mainTreat(main.id);
-
-sele(all, 'time', footerSmall).forEach(time => time.textContent = new Date().getFullYear());
 
 window.addEventListener("hashchange", shiftWindow);
 
@@ -42,11 +37,13 @@ headerNavSectionDiv.addEventListener('click', toggleNav);
 sele(all, 'a:not([href^="#"]):not([href^="http"]):not([href^="javascript:void(0)"])', headerNav).forEach(a => a.addEventListener('click', e => {
     e.stopPropagation();
     e.preventDefault();
-    if (a.pathname !== location.pathname) {
-        changeMain(a.pathname);
-        history.pushState({}, '', a.pathname);
+    if (!sele(a.parentElement, 'ul')) {
+        if (a.pathname !== location.pathname) {
+            changeMain(a.pathname);
+            history.pushState({}, '', a.pathname);
+        }
+        if (a.pathname !== '/' || headerNav.classList.contains('showingLi')) toggleNav();
     }
-    if (a.pathname !== '/' || headerNav.classList.contains('showingLi')) toggleNav();
 }));
 
 sele(all, 'abbr', headerNav).forEach(abbr => abbr.addEventListener('click', () => {
@@ -61,6 +58,13 @@ headerNavInput.addEventListener('keyup', () => {
     history.pushState({}, '', search);
 });
 
-setTimeout(() => pages.forEach(page =>
-    contents.find(content => content.id === page) || get('content', page).then(data => contents.push({ id: page, HTML: data }))
-), 5000);
+pages.forEach(page => 
+    setTimeout(() => contents.find(content => content.id === page) || get('content', page).then(data => contents.push({ id: page, HTML: data })), 0));
+
+if (document.documentElement.offsetWidth > 768) {
+    sele(all, 'ul:nth-of-type(1)>li>a', headerNav).forEach(a => {
+        const changeFont = () => !(textWidth(a) + 2 > sele(headerNav, 'nav>ul:nth-of-type(1)>li').offsetWidth) || (a.style.fontSize = '1.5vw');
+        changeFont();
+        window.addEventListener('resize', changeFont);
+    });
+}

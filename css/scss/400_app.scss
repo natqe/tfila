@@ -34,22 +34,20 @@ html {
   position: relative;
   min-height: 100%;
 
-  ::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+  ::-webkit-scrollbar {
+    width: .6rem;
     background-color: $bgcLight;
-    border-radius: 10px;
   }
 
-  ::-webkit-scrollbar {
-    width: 10px;
-    background-color: $bgcLight;
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
   }
 
   ::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    background-color: #fff;
-    background-image: -webkit-linear-gradient(bottom, $bgcLight 0%, mix($bgcLight, $bgc, 51) 50%, mix($bgcLight, $bgc) 51%, $bgc 100%);
+    border-radius: .6rem;
+    background-image: linear-gradient(to top, $bgcLight 0%, mix($bgcLight, $bgc, 51) 50%, mix($bgcLight, $bgc) 51%, $bgc 100%);
   }
+  scrollbar-face-color: mix($bgc, $bgcLight);
 
   a {
     text-decoration: none;

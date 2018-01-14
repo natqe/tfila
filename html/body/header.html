@@ -16,10 +16,11 @@
     </section>
     <ul>
 <?php
-foreach ($fetch_pages as $page) {
+foreach ($merge_cats_pages as $page) {
+    if(!in_array($page['name'], array_column($fetch_sub_menus, 'page'))){
 ?>
         <li>
-            <a href=<?=$page['name']?>><?=$page['name']?></a>
+            <a href=<?=$page['name']?>><?=str_replace('-',' ',$page['name'])?></a>
 <?php 
     if (in_array($page['name'], array_column($fetch_sub_menus, 'below'))) {
 ?>
@@ -29,7 +30,7 @@ foreach ($fetch_pages as $page) {
             if ($array['below'] === $page['name']) {
 ?>
                 <li>
-                    <a href=<?=$array['page']?>><?=$array['page']?></a>
+                    <a href=<?=$array['page']?>><?=str_replace('-',' ',$array['page'])?></a>
                 </li>
 <?php 
             }
@@ -40,7 +41,8 @@ foreach ($fetch_pages as $page) {
     }
 ?>
         </li>
-<?php 
+<?php
+    }
 }
 ?>
         <li>

@@ -6,14 +6,14 @@ $is_sign_up = $request_page === $sign_up;
 if ($request_page !== $sign_in && !$is_sign_up) {
 
     if(!$search_str) $fetch_preface = $pdo->query("SELECT title, body FROM prefaces WHERE page='$request_page'")->fetch();
-
+    if($fetch_preface ?? $search_str){
 ?>
     <article id=preface>
-            <h1><?=$search_str ? "תוצאות חיפוש עבור: \"$search_str\"" : ($fetch_preface['title'] ?? '')?></h1>
+            <h1><?=$search_str ? "תוצאות חיפוש עבור: \"$search_str\"" : $fetch_preface['title'] ?></h1>
             <p><?=$fetch_preface['body'] ?? ''?></p>
     </article>
 <?php
-
+    }
     if($request_page !== $home && $request_page !== $not_found){
 
         if (!$search_str) {

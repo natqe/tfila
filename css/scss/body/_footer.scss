@@ -6,7 +6,7 @@
   height: 100px;
   text-align: center;
   background: $bgcLDark;
-
+  z-index: 1;
   > small {
     grid-row: 1 / 2;
     margin: auto;

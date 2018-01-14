@@ -14,9 +14,11 @@
       grid-column: 1 / 21;
       display: block;
       justify-self: center;
-      >abbr{
+
+      > abbr {
         opacity: 0;
       }
+
       > div {
         display: none;
       }
@@ -60,8 +62,9 @@
           > li {
             background: $bgc;
           }
+
           @media (min-width: 768px) {
-            &::before{
+            &::before {
               content: '^';
               margin: -0.8rem;
               padding-top: 0.3rem;
@@ -72,7 +75,8 @@
 
       &:nth-of-type(1) {
         grid-column: 22 / 70;
-        @media (min-width: 768px){
+
+        @media (min-width: 768px) {
           a {
             border: solid $bgc + 3;
           }
@@ -82,45 +86,55 @@
       &:nth-of-type(2) {
         grid-column: 75 / 80;
         grid-template-columns: 5fr 2fr 5fr;
-        li:nth-of-type(2){
+
+        li:nth-of-type(2) {
           color: $bgcLight;
         }
+
         a:hover {
           background: none;
           color: darken($color, $changeAmount);
-          @media (min-width: 768px){
-            &:hover{
+
+          @media (min-width: 768px) {
+            &:hover {
               font-weight: bold;
             }
           }
         }
       }
     }
-    >abbr{
-      grid-column: 94/96;
+
+    > abbr {
+      grid-column: 94 / 96;
       margin-top: 1rem;
       line-height: 3.3rem;
       font-family: 'Material Icons';
       transition: font 0.3s;
       text-decoration: none;
       cursor: pointer;
-      &:hover{
+
+      &:hover {
         font-size: 1.2rem;
       }
     }
+
     > input {
       display: none;
     }
-    &.searchMode{
-      div{
+
+    &.searchMode {
+      div {
         display: none;
       }
-      ul,abbr{
+
+      ul,
+      abbr {
         display: none;
       }
-      input{
-        grid-column: 22/96;
-        grid-row: 1/2;
+
+      input {
+        grid-column: 22 / 96;
+        grid-row: 1 / 2;
         display: inline-block;
         margin: 1rem 0;
         background: $bgcDesat;
@@ -128,10 +142,12 @@
         color: invert($bgcDesat);
         border: none;
         border-radius: 10px;
-        &:focus{
+
+        &:focus {
           outline: none;
         }
-        &::placeholder{
+
+        &::placeholder {
           color: invert($bgcDesat);
           opacity: 0.2;
         }

@@ -78,18 +78,15 @@
     width: 20%;
     text-align: center;
     z-index: 1;
-    overflow-y: auto;
+    overflow-y: scroll;
     
 
     &::-webkit-scrollbar-track {
-      -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
       background-color: $bgc;
-      border-radius: 10px;
     }
 
     &::-webkit-scrollbar-thumb {
-      border-radius: 10px;
-      background-image: -webkit-linear-gradient(bottom, $bgc 0%, $bgcLight 50%, $bgcLight 51%, $bgc 100%);
+      background-image: linear-gradient(to top, $bgc 0%, $bgcLight 50%, $bgcLight 51%, $bgc 100%);
     }
 
     > nav {

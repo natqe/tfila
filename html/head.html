@@ -8,10 +8,10 @@
 <meta name=robots content=noindex,follow>
 <!-- end to delete -->
 <link rel=icon href=img/ico/favicon.ico>
-<style><?php foreach (glob('css/*.css') as $file) require_once $file;?></style>
+<style><?php foreach (glob('css/*.css') as $file) require_once $file;?>/**/</style>
 <script>
 window.onload = () => {
 <?php foreach (array_merge(glob('js/lib/*.js'), glob('js/function/*.js'), glob('js/*.js')) as $file) require_once $file;?>
 }
 </script>
-<title>תפלה לשלמה</title>
+<title>תפלה לשלמה<?=$request_page === $home ? '' : " | $request_page"?></title>

@@ -1,28 +1,23 @@
 
 function mainTreat(mainId) {
     mainAside = sele(main, 'aside');
-    const mainAsideNav= sele(mainAside, 'nav');
-
-
-    document.title = mainId !== '<?=$home?>' ? `${title} | ${mainId}` : title;
-
+    mainSection = sele(main, 'section');
+    const mainAsideNav = sele(mainAside, 'nav');
     document.documentElement.scrollTop = 0;
-
     mainAside.style.top = `${header.offsetHeight - 30}px`;
     mainAside.style.height = `${window.innerHeight}px`;
-
+    
     sele(all, 'a[href^="#"]').forEach(a => a.addEventListener('click', e => {
         if (location.hash && location.hash === a.hash) {
             e.preventDefault();
             history.pushState({}, '', location.pathname);
             if (a.dataset.type === 'טקסט') setOldP(sele('.setOld'));
         }
-        const asideA = a.parentElement.tagName === 'U' && a.parentElement.parentElement.tagName === 'NAV' ?
-         a : 
-         sele(mainAsideNav, `a[href="${a.getAttribute('href')}"]`);
-         
+        const asideA = a.parentElement.tagName === 'U' && a.parentElement.parentElement === mainAsideNav ?
+            a :
+            sele(mainAsideNav, `u a[href="${a.getAttribute('href')}"]`);
         if (!asideA.classList.contains('active')) {
-            const oldActive = sele(mainAsideNav, '.active');
+            const oldActive = sele(mainAsideNav, 'u a.active');
             if (oldActive) oldActive.classList.remove('active');
         }
         asideA.classList.toggle('active');
@@ -54,11 +49,8 @@ function mainTreat(mainId) {
     }
 
     '<?php endif;?>';
-
-    sele(all, 'article[data-type="טקסט"]:not([id="preface"])', mainSection).forEach(articleText => {
-        setTimeout(() => {
-            const p = sele(articleText, 'p[id]');
-            paras.find(para => para.id === p.id) || get('p_from', p.id).then(data => paras.push({ id: p.id, HTML: data })).catch(err => console.log(err));
-        }, 0);
-    });
+    sele(all, 'article[data-type="טקסט"]:not([id="preface"]) > p[id]', mainSection).forEach(p =>
+        setTimeout(() =>
+            paras.find(para => para.id === p.id) || get('p_from', p.id).then(data => paras.push({ id: p.id, HTML: data })).catch(err => console.log(err)), 0));
+          
 }

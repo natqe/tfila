@@ -14,6 +14,7 @@ $logo: $gold;
 $changeAmount: 10%;
 $bgc: mix(nth($blist, 2), nth($bgl, 1), $changeAmount * 2.5);
 $color: invert($bgc);
+$bgcDDark: darken($bgc, $changeAmount * 1.3);
 $bgcDark: darken($bgc, $changeAmount);
 $bgcLDark: darken($bgc, $changeAmount / 3);
 $bgcLight: lighten($bgc, $changeAmount);
