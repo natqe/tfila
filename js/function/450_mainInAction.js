@@ -1,7 +1,7 @@
 
 function mainInAction(content) {
     [main.id, main.innerHTML] = [content.id, content.HTML];
-    document.title = main.id !== '<?=$home?>' ? `${title} | ${main.id}` : title;
+    document.title = main.id !== '<?=$home?>' ? `${title} | ${main.id.replace(/-/g, ' ')}` : title;
     mainTreat(main.id);
 
     if (main.id.startsWith('חיפוש-')) {
