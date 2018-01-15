@@ -18,11 +18,12 @@
 <?php
 foreach ($merge_cats_pages as $page) {
     if(!in_array($page['name'], array_column($fetch_sub_menus, 'page'))){
+        $is_cat = in_array($page['name'], array_column($categories, 'name'));
 ?>
         <li>
-            <a href=<?=$page['name']?>><?=str_replace('-',' ',$page['name'])?></a>
+            <a<?=!$is_cat ? " href={$page['name']}" :  " class=category"?>><?=title_from($page['name'])?></a>
 <?php 
-    if (in_array($page['name'], array_column($fetch_sub_menus, 'below'))) {
+    if ($is_cat) {
 ?>
             <ul>
 <?php 
@@ -30,7 +31,7 @@ foreach ($merge_cats_pages as $page) {
             if ($array['below'] === $page['name']) {
 ?>
                 <li>
-                    <a href=<?=$array['page']?>><?=str_replace('-',' ',$array['page'])?></a>
+                    <a href=<?=$array['page']?>><?=title_from($array['page'])?></a>
                 </li>
 <?php 
             }

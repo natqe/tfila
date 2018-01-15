@@ -63,7 +63,7 @@ pages.forEach(page =>
 
 if (document.documentElement.offsetWidth > 768) {
     sele(all, 'ul:nth-of-type(1)>li>a', headerNav).forEach(a => {
-        const changeFont = () => !(textWidth(a) + 2 > sele(headerNav, 'nav>ul:nth-of-type(1)>li').offsetWidth) || (a.style.fontSize = '1.5vw');
+        const changeFont = () => !(textWidth(a) + 2 > sele(headerNav, 'nav>ul:nth-of-type(1)>li').offsetWidth) || (a.style.fontSize = '1.2vw');
         changeFont();
         window.addEventListener('resize', changeFont);
     });
