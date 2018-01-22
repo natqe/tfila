@@ -6,7 +6,6 @@ function mainTreat(mainId) {
     document.documentElement.scrollTop = 0;
     mainAside.style.top = `${header.offsetHeight - 30}px`;
     mainAside.style.height = `${window.innerHeight}px`;
-    
     sele(all, 'a[href^="#"]').forEach(a => a.addEventListener('click', e => {
         if (location.hash && location.hash === a.hash) {
             e.preventDefault();
@@ -33,24 +32,22 @@ function mainTreat(mainId) {
                 signupPassConfirm.setCustomValidity('');
     }
 
-    switch (mainId) {
-        case '<?=$sign_up?>':
-        case '<?=$sign_in?>':
-            const inputEmail = sele('input[type=email]');
-            inputEmail.focus();
-            inputEmail.addEventListener('keyup', e => {
-                e.stopPropagation();
-                if (!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(inputEmail.value)) {
-                    inputEmail.setCustomValidity('הכנס כתובת אימייל תקינה');
-                } else {
-                    inputEmail.setCustomValidity('');
-                }
-            });
+    '<?php endif;?>';
+
+    const removeActivesFromNav= ()=> sele(all, '.active', headerNav).forEach(oldActive => oldActive.classList.remove('active'));
+    if (!main.id.startsWith('חיפוש-')) {
+        const menuAParent = main.id !== 'בית' ? sele(`ul>li>a[href='${main.id}']`, headerNav).parentElement : headerNavSection;
+        if (!menuAParent.classList.contains('active')) {
+            removeActivesFromNav();
+            menuAParent.classList.add('active');
+            if (menuAParent.parentElement.parentElement.tagName === 'LI') menuAParent.parentElement.parentElement.classList.add('active');
+        }
+    } else {
+        removeActivesFromNav();
     }
 
-    '<?php endif;?>';
     sele(all, 'article[data-type="טקסט"]:not([id="preface"]) > p[id]', mainSection).forEach(p =>
         setTimeout(() =>
-            paras.find(para => para.id === p.id) || get('p_from', p.id).then(data => paras.push({ id: p.id, HTML: data })).catch(err => console.log(err)), 0));
-          
+            paras.some(para => para.id === p.id) || get('p_from', p.id).then(data => paras.push({ id: p.id, HTML: data })).catch(err => { throw err }), 0));
+
 }

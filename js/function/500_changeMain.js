@@ -18,7 +18,6 @@ function changeMain (toMain) {
                 contents.push(content = { id: toMain, HTML: data });
                 mainInAction(content);
             })
-            .catch(err =>
-                console.log(err));
+            .catch(err => {throw err});
     }
 };

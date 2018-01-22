@@ -4,13 +4,9 @@
 
 // echo var_export(); die; //for tests
 
-if (isset($_GET['p_from'])) {
-    $prepare_p = $pdo->prepare("SELECT body FROM articles WHERE id = ? ");
-    $prepare_p->execute([$_GET['p_from']]);
-    die($prepare_p->fetch()['body']);
-}
+if (isset($_GET['p_from'])) die($db->select('body', 'articles', 'id = ?', [$_GET['p_from']],'', false)['body']);
 
-$fetch_pages = $pdo->query('SELECT * FROM pages ORDER BY created_at')->fetchAll();
+$fetch_pages = $db->select('*',  'pages', '', [], 'created_at');
 
 $pages = $pages_from_db = array_column($fetch_pages, 'name');
 $pages[] = $home = 'בית';
@@ -25,9 +21,9 @@ $search = 'חיפוש-';
 $request_page = ($_GET['content'] ?? $_GET['search'] ?? ltrim(urldecode($_SERVER['REQUEST_URI']), '/')) ?: $home;
 
 $search_str = isset($_GET['search']) || substr($request_page, 0, strlen($search)) === $search ?
-    str_replace('-', ' ', $_GET['search'] ?? substr($request_page, strlen($search), strlen($request_page))) :
-    false;
-if(!strlen($search_str)) $search_str = false;
+    title_from($_GET['search'] ?? substr($request_page, strlen($search), strlen($request_page))) :
+    null;
+if(!strlen($search_str)) $search_str = null;
 
 if (!in_array($request_page, $pages) && !$search_str) $request_page = $not_found;
 
@@ -36,7 +32,7 @@ if(isset($_GET['search'])){
 }elseif (isset($_GET['content'])) {
     if (in_array($_GET['content'], $pages)) require_once "html/body/main.html";
 } else {
-    $fetch_sub_menus = $pdo->query('SELECT * FROM sub_menu')->fetchAll();
+    $fetch_sub_menus = $db->select('*', 'sub_menu');
     if ($request_page === $not_found) http_response_code(404);
     $year = date('Y');
     foreach (array_unique(array_column($fetch_sub_menus, 'below')) as $catgory) {

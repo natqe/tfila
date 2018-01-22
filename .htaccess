@@ -1,4 +1,4 @@
-Options FollowSymlinks
+#Options FollowSymlinks
 
 # Options -indexes
 
@@ -7,8 +7,6 @@ DirectoryIndex index.php
 AddDefaultCharset utf-8
 
 Options +MultiViews
-
-# Redirect /  /index
 
 
 # ErrorDocument 500 /500

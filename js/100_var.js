@@ -1,6 +1,6 @@
 
 const all = '*';
-const title = document.title.split('|')[0].trim();
+const baseTitle = document.title.split('|')[0].trim();
 const [header, main, footer] = sele('header', 'main', 'footer');
 const headerNav = sele(header, 'nav');
 let [mainSection, mainAside] = sele(main, 'section', 'aside');

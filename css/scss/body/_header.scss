@@ -31,11 +31,15 @@
 
     ul li > a {
       display: block;
-      transition: 0.3s ease-in;
+      transition: background 0.3s ease-in;
 
       &:hover {
         color: $bgcDark;
-        background: $bgcLight;
+        background: mix($bgcLight, nth($glist, 2), 95%);
+      }
+
+      &:active:not(.category) {
+        text-shadow: 0 0 2px complement($bgc);
       }
     }
 
@@ -77,8 +81,38 @@
         grid-column: 22 / 70;
 
         @media (min-width: 768px) {
-          a {
-            border: solid $bgc + 3;
+          li > a {
+            border: solid $bgc+3;
+          }
+
+          > li {
+            > a {
+              position: relative;
+            }
+
+            &.active {
+              > a {
+                > div {
+                  position: absolute;
+                  width: 100%;
+                  z-index: -1;
+                  transition: max-width 3s ease-in;
+                  height: 1%;
+                  max-width: 50%;
+                  top: 85%;
+                  right: 25%;
+                  background: linear-gradient(to left, $bgc 0%, nth($glist, 2) 50%, nth($glist, 2) 51%, $bgc 100%);
+                  box-shadow: -1px -15px 35px 1px nth($glist, 2);
+
+                  &:hover {
+                    max-width: 0;
+                    max-height: 0;
+                    border-color: $bgcLight -1;
+                    z-index: 1;
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -96,9 +130,7 @@
           color: darken($color, $changeAmount);
 
           @media (min-width: 768px) {
-            &:hover {
               font-weight: bold;
-            }
           }
         }
       }

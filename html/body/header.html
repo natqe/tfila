@@ -21,7 +21,7 @@ foreach ($merge_cats_pages as $page) {
         $is_cat = in_array($page['name'], array_column($categories, 'name'));
 ?>
         <li>
-            <a<?=!$is_cat ? " href={$page['name']}" :  " class=category"?>><?=title_from($page['name'])?></a>
+            <a<?=!$is_cat ? " href={$page['name']}" :  " class=category"?>><div></div><?=title_from($page['name'])?></a>
 <?php 
     if ($is_cat) {
 ?>

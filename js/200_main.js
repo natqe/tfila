@@ -20,10 +20,10 @@ mainTreat(main.id);
 window.addEventListener("hashchange", shiftWindow);
 
 window.addEventListener('popstate', () => {
-    sele('main').id === idFrom(location.pathname) || changeMain(idFrom(location.pathname));
-    sele(all, `article[data-type="טקסט"]:not([id='${decodeURI(location.hash.replace("#", ""))}'])`).forEach(article => setOldP(sele(article, 'p')));
+    if(main.id !== idFrom(location.pathname)) changeMain(idFrom(location.pathname));
+    sele(all, `article[data-type='טקסט'][id]:not([id='${decodeURI(location.hash.replace("#", ""))}']) > p[id]`).forEach(p => setOldP(p));
     if (location.hash) loadPFromHash();
-    removeSpansMark(main);
+    unmark(main);
 });
 
 headerNavContact.addEventListener('click', e => {
@@ -59,11 +59,12 @@ headerNavInput.addEventListener('keyup', () => {
 });
 
 pages.forEach(page => 
-    setTimeout(() => contents.find(content => content.id === page) || get('content', page).then(data => contents.push({ id: page, HTML: data })), 0));
+    setTimeout(() => contents.some(content => content.id === page) || get('content', page).then(data => contents.push({ id: page, HTML: data })), 0));
 
 if (document.documentElement.offsetWidth > 768) {
     sele(all, 'ul:nth-of-type(1)>li>a', headerNav).forEach(a => {
-        const changeFont = () => !(textWidth(a) + 2 > sele(headerNav, 'nav>ul:nth-of-type(1)>li').offsetWidth) || (a.style.fontSize = '1.2vw');
+        const li = sele(headerNav, 'nav>ul:nth-of-type(1)>li');
+        const changeFont = () => !(textWidth(a) + 2 > li.offsetWidth) || (a.style.fontSize = '1.2vw');
         changeFont();
         window.addEventListener('resize', changeFont);
     });

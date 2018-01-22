@@ -10,8 +10,8 @@
 <link rel=icon href=img/ico/favicon.ico>
 <style><?php foreach (glob('css/*.css') as $file) require_once $file;?>/**/</style>
 <script>
-window.onload = () => {
-<?php foreach (array_merge(glob('js/lib/*.js'), glob('js/function/*.js'), glob('js/*.js')) as $file) require_once $file;?>
-}
+  window.addEventListener('load', () => {
+    <?php foreach (array_merge(glob('js/lib/*.js'), glob('js/function/*.js'), glob('js/*.js')) as $file) require_once $file;?>
+  });
 </script>
 <title>תפלה לשלמה<?=$request_page === $home ? '' : ' | '.title_from($request_page)?></title>

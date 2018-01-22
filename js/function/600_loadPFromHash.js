@@ -9,7 +9,7 @@ function loadPFromHash() {
             if (dataPara) {
 
                 p.innerHTML = markSearch(dataPara.HTML);
-                removeSpansMark(p);
+                unmark(p);
 
             } else {
                 get('p_from', p.id).then(data => {
@@ -17,7 +17,7 @@ function loadPFromHash() {
 
                     p.innerHTML = markSearch(data);
 
-                    removeSpansMark(p);
+                    unmark(p);
 
                     p.scrollIntoView();
                     scrollBy(0, -(header.offsetHeight + 70));

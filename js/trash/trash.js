@@ -143,29 +143,53 @@ if (currentPage && currentPage.type !== 'וידאו' && currentPage.type !== 'א
 
 
 
-    const searchId = `חיפוש-${headerNavInput.value.trim().replace(/\s+/g, '-')}`;
-    let content = contents.find(content => content.id == searchId);
-    if (content) {
-        mainInAction(content);
-    } else {
-        get('search', headerNavInput.value)
-            .then(data => {
-                contents.push(content = { id: searchId, HTML: data });
-                mainInAction(content);
-            })
-            .catch(err =>
-                console.log(err));
-    }
-    history.pushState({}, '', `?search=${headerNavInput.value}`);
-    console.log(main.id);
+const searchId = `חיפוש-${headerNavInput.value.trim().replace(/\s+/g, '-')}`;
+let content = contents.find(content => content.id == searchId);
+if (content) {
+    mainInAction(content);
+} else {
+    get('search', headerNavInput.value)
+        .then(data => {
+            contents.push(content = { id: searchId, HTML: data });
+            mainInAction(content);
+        })
+        .catch(err =>
+            console.log(err));
+}
+history.pushState({}, '', `?search=${headerNavInput.value}`);
+console.log(main.id);
 
-    const SMController = new ScrollMagic.Controller();
-    const preface = sele('#preface');
-    if (preface) {
-        new ScrollMagic.Scene({
-            triggerElement: preface,
-            duration: '100%',
-            triggerHook: '0.95'
-        }).setClassToggle(preface, 'fadeIn').
-            addTo(SMController);
+const SMController = new ScrollMagic.Controller();
+const preface = sele('#preface');
+if (preface) {
+    new ScrollMagic.Scene({
+        triggerElement: preface,
+        duration: '100%',
+        triggerHook: '0.95'
+    }).setClassToggle(preface, 'fadeIn').
+        addTo(SMController);
+}
+
+
+
+function markSearch(data) {
+    if (main.id.startsWith('חיפוש-')) {
+        let valGet = main.id.split('-');
+        valGet.shift();
+        valGet = valGet.join(' ');
+        return data.replace(new RegExp("<(/)?span class='mark חיפוש-[^>]*>", 'g'), '<span>').
+            replace(new RegExp(valGet, 'g'), `<span class='mark ${main.id}' >${valGet}</span>`);
     }
+    return data;
+}
+
+
+
+inputEmail.addEventListener('keyup', e => {
+    e.stopPropagation();
+    if (!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(inputEmail.value)) {
+        inputEmail.setCustomValidity('הכנס כתובת אימייל תקינה');
+    } else {
+        inputEmail.setCustomValidity('');
+    }
+});

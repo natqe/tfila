@@ -1,10 +1,30 @@
-.setOld{
-    @extend %animated, %slideText;
+.setOld {
+  @extend %animated, %slideText;
 }
 
-.fadeIn{
-    @extend %animated, %fadeIn;
+.fadeIn {
+  @extend %animated, %fadeIn;
 }
+
+// nav > ul > li {
+//   &.active {
+//     > a {
+//         // outline: rgba($bgcDark, .5) 1px solid;
+//         // border: none !important;
+//         // border-radius: 0 !important;
+  
+//         &:not([href=התחברות]):not([href=הרשמה]):not(:hover) {
+//           @media (min-width: 768px) {
+//             border: rgba($bgcLight, .5) 1px solid;
+//           }
+//         }
+//       }
+  
+//       ul > li.active > a:not(:hover) {
+//         color: $colorComp;
+//       }
+//   }
+// }
 
 // .material-icons {
 //     font-family: 'Material Icons';

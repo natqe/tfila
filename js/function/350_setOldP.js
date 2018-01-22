@@ -5,7 +5,7 @@ function setOldP(theP) {
         if (oldPara) {
             theP.classList.remove('setOld');
             theP.innerHTML = markSearch(oldPara.HTML);
-            removeSpansMark(theP);
+            unmark(theP);
         }
     }
 }

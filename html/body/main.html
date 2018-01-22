@@ -5,7 +5,7 @@ $is_sign_up = $request_page === $sign_up;
 
 if ($request_page !== $sign_in && !$is_sign_up) {
 
-    if(!$search_str) $fetch_preface = $pdo->query("SELECT title, body FROM prefaces WHERE page='$request_page'")->fetch();
+    if(!$search_str) $fetch_preface = $db->select('title, body', 'prefaces', "page='$request_page'", [], '', false);
     if($fetch_preface ?? $search_str){
 ?>
     <article id=preface>
@@ -16,28 +16,21 @@ if ($request_page !== $sign_in && !$is_sign_up) {
     }
     if($request_page !== $home && $request_page !== $not_found){
 
-        if (!$search_str) {
-
-            $fetch_articles = $pdo->query(
-                "SELECT id, type, title, IF(type='טקסט', SUBSTRING(body, 1, ROUND(RAND()*(175-125))+125), body) AS sub_body FROM articles
-                WHERE page='$request_page' ORDER BY id"
-            )->fetchAll();
-
-        } else {
-
-            $prepare_search = $pdo->prepare(
-                "SELECT id, type, title, IF(type='טקסט', SUBSTRING(body, 1, ROUND(RAND()*(175-125))+125), body) AS sub_body FROM articles
-                WHERE body LIKE ? OR title LIKE ? ORDER BY page"
-            );
-            $prepare_search->execute(["%$search_str%", "%$search_str%"]);
-            $fetch_articles = $prepare_search->fetchAll();
-
-        }
-
+        $fetch_articles = $db->select(
+            'id,'. (!$search_str ? '' : 'page,') ."type, title, IF(type='טקסט', SUBSTRING(body, 1, ROUND(RAND()*(175-125))+125), body) AS sub_body",
+            'articles',
+            !$search_str ? "page='$request_page'" : "MATCH(title,body) AGAINST(?)",
+            !$search_str ? [] : [$search_str],
+            !$search_str ? "id" : ''
+        );
         foreach ($fetch_articles as $article) {
 ?>
-    <article id=<?=str_replace(' ', '-', $article['title'])?> data-type=<?=$article['type']?>>
-            <h2><a href=#<?=str_replace(' ', '-', $article['title'])?> data-type=<?=$article['type']?>><?=$article['title']?></a></h2>
+    <article id=<?=link_from($article['title'])?> data-type=<?=$article['type']?>>
+            <h2>
+                <a href=#<?=link_from($article['title'])?> data-type=<?=$article['type']?>>
+                    <?=(!$search_str ?  '' : title_from($article['page'])." - ").$article['title']?>
+                </a>
+            </h2>
             <p id=<?=$article['id']?>><?=$article['type'] === 'טקסט' ? strip_tags($article['sub_body']).'...' : $article['sub_body']?></p>
     </article>
 <?php
@@ -52,7 +45,9 @@ if ($request_page !== $sign_in && !$is_sign_up) {
         <legend><?=$request_page?> לאתר:</legend>
         <label>
             <span>דואר אלקטרוני <?=$is_sign_up ? '*' : ''?></span>
-            <input type=email name=email placeholder=name@email.com spellcheck=false required <?='value=' . ($_POST[ 'email']?? '')?>>
+            <input type=email name=email placeholder=name@email.com value="<?=($_POST[ 'email']?? '')?>" spellcheck=false
+            pattern='^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$'
+            autofocus required>
         </label>
         <label>
             <span>סיסמא <?=$is_sign_up ? '*' : ''?></span>
@@ -78,7 +73,11 @@ if(isset($fetch_articles)){
 <?php    
     foreach ($fetch_articles as $article) {
 ?>
-    <u><a href=#<?=str_replace(' ', '-', $article['title'])?> data-type=<?=$article['type']?>><?=$article['title']?></a></u>
+    <u>
+        <a style='line-height: 1.2rem' href=#<?=link_from($article['title'])?> data-type=<?=$article['type']?>>
+            <?=$article['title'].(!$search_str ?  '' :"<br><small style='font-size: 0.7rem'>(". title_from($article['page']).')</small>')?>
+        </a>
+    </u>
 <?php
     }
 ?>
